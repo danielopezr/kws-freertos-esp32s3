@@ -96,6 +96,15 @@ class TestBuildSequence(unittest.TestCase):
         self.assertEqual(B.voiced_range(x), (3200, 8000))
         self.assertEqual(B.voiced_range(np.zeros(16_000)), (0, 16_000))
 
+    def test_voiced_range_ignores_noise_floor_and_clicks(self):
+        rng = np.random.default_rng(1)
+        x = rng.normal(0, 0.02, 16_000)  # noisy recording: word only ~20 dB above the floor
+        x[160:320] += 0.15  # click far from the word, quieter than it
+        x[6400:9600] += 0.2 * np.sin(2 * np.pi * 300 * np.arange(3200) / 16_000)
+        x[9600:10560] = rng.normal(0, 0.02, 960)  # 60 ms stop closure inside the word
+        x[10560:11200] += 0.1 * np.sin(2 * np.pi * 300 * np.arange(640) / 16_000)
+        self.assertEqual(B.voiced_range(x), (6400, 11200))
+
     def test_deterministic_and_seed_dependent(self):
         pcm2, rows2 = B.build(self.root, **self.kw)
         np.testing.assert_array_equal(self.pcm, pcm2)
@@ -126,6 +135,15 @@ class TestBuildSequence(unittest.TestCase):
         self.assertEqual(header.count("u, "), 4 * len(self.rows))
         self.assertEqual(json.loads((out / "manifest.json").read_text())["sha256"], m["sha256"])
         self.assertEqual(m["speakers"], len(self.rows))
+
+    def test_relabel_reproduces_build(self):
+        out = Path(self.tmp.name) / "relabel"
+        B.write_outputs(out, self.pcm, [dict(r, voiced_start=0, voiced_end=0) for r in self.rows], self.kw, wav=False)
+        B.relabel(out)
+        with open(out / "labels.csv", newline="") as f:
+            rows = list(csv.DictReader(f))
+        self.assertEqual([(int(r["voiced_start"]), int(r["voiced_end"])) for r in rows],
+                         [(r["voiced_start"], r["voiced_end"]) for r in self.rows])
 
 
 if __name__ == "__main__":
