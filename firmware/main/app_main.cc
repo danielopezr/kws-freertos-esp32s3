@@ -1,6 +1,7 @@
 // Phase 1 skeleton: proves that the toolchain, PSRAM, the MFCC component and
-// TensorFlow Lite Micro (esp-tflite-micro) build, link and run on the ESP32-S3.
-// The real tasks T1-T4 replace this in the next steps.
+// TensorFlow Lite Micro (esp-tflite-micro) build, link and run on the ESP32-S3,
+// then runs the GPIO probe test (plan step 5) to validate the measurement chain
+// with the logic analyzer. The real tasks T1-T4 replace the probe test later.
 
 #include <cmath>
 #include <cstdio>
@@ -12,6 +13,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "kws_mfcc.h"
+#include "probes.h"
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
 
 namespace {
@@ -65,4 +67,14 @@ extern "C" void app_main(void)
     check_tflm();
     check_mfcc();
     printf("skeleton OK\n");
+
+    probes_init();
+    probes_start_test();
+    printf("probe test running: T1 %d ms/%d us, T2 %d ms/%d us, T3 %d ms/%d us, T4 %d ms/%d us\n",
+           PROBE_T1_PERIOD_MS, PROBE_T1_BUSY_US, PROBE_T2_PERIOD_MS, PROBE_T2_BUSY_US,
+           PROBE_T3_PERIOD_MS, PROBE_T3_BUSY_US, PROBE_T4_PERIOD_MS, PROBE_T4_BUSY_US);
+    for (;;) {
+        vTaskDelay(pdMS_TO_TICKS(5000));
+        probes_report();
+    }
 }
