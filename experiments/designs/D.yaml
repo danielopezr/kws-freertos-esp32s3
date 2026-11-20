@@ -1,0 +1,18 @@
+# Experiment D: strategies. Baseline vs. the best configuration found in A/B vs. an alternative strategy.
+# `best` and `alternative` are chosen after analysing A and B; the runner refuses to start until both
+# are filled in. Default proposal for `alternative`: preallocated reusable buffers + T1 with the highest
+# priority, e.g. {affinity: none, prio: lower, load: "off", mem: sram, alloc: static}.
+name: D
+replicates: 5
+seed: 1104
+fixed:
+  frag: "0"
+  seq: full
+factors:
+  model: [dnn, cnn, dscnn]
+  strategy: [base, best, alternative]
+presets:
+  strategy:
+    base: {affinity: none, prio: equal, load: "off", mem: sram, alloc: static}
+    best: null
+    alternative: null

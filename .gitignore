@@ -40,3 +40,6 @@ training/artifacts/
 *.obj
 *.pdb
 firmware/components/*/host_test/host_test
+
+# Simulated experiment results (never mixed with real ones)
+experiments/sim_results/

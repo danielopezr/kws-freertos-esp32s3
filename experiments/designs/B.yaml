@@ -1,0 +1,14 @@
+# Experiment B: memory. Where the buffers and tensor arena live and how they are allocated, per model.
+name: B
+replicates: 5
+seed: 1102
+fixed:
+  affinity: none
+  prio: equal
+  load: "off"
+  frag: "0"
+  seq: full
+factors:
+  model: [dnn, cnn, dscnn]
+  mem: [sram, psram]
+  alloc: [static, dynamic]

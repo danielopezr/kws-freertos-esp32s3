@@ -1,0 +1,15 @@
+# Experiment C: fragmentation. Can the tensor arena still be allocated after a fixed alloc/free pattern?
+# Almost deterministic and needs no test sequence, so one replicate (plan step 13).
+name: C
+replicates: 1
+seed: 1103
+fixed:
+  affinity: none
+  prio: equal
+  load: "off"
+  mem: sram
+  alloc: dynamic
+  seq: none
+factors:
+  frag: ["0", "1", "2"]
+  model: [dnn, cnn, dscnn]

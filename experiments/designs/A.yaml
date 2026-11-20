@@ -1,0 +1,14 @@
+# Experiment A: scheduling. Does the effect of T3's priority depend on whether the tasks share a core?
+name: A
+replicates: 5          # minimum from the proposal; confirmed or raised after the pilot (plan step 12)
+seed: 1101             # fixes the run order and the per-run seeds; never change it once runs exist
+fixed:
+  model: cnn
+  mem: sram
+  alloc: static
+  frag: "0"
+  seq: full
+factors:
+  affinity: [same, split, none]
+  prio: [lower, equal, higher]
+  load: ["off", "on"]
