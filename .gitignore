@@ -34,3 +34,9 @@ desktop.ini
 
 # Training outputs (C arrays are copied into firmware/ on purpose)
 training/artifacts/
+
+# Host-side test builds
+*.exe
+*.obj
+*.pdb
+firmware/components/*/host_test/host_test
