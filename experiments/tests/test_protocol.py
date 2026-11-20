@@ -13,8 +13,14 @@ class TestProtocol(unittest.TestCase):
     def test_cfg_round_trip(self):
         line = P.cfg_line(CFG, 42)
         self.assertEqual(line, "CFG model=cnn affinity=split prio=higher load=on mem=sram alloc=static "
-                               "frag=0 seq=full seed=42")
-        self.assertEqual(P.parse_cfg(line), (CFG, 42))
+                               "frag=0 seq=full demo=off seed=42")
+        self.assertEqual(P.parse_cfg(line), (dict(CFG, demo="off"), 42))
+
+    def test_demo_defaults_to_off(self):
+        self.assertEqual(P.validate(CFG)["demo"], "off")
+        self.assertEqual(P.validate(dict(CFG, demo="on"))["demo"], "on")
+        with self.assertRaises(P.ProtocolError):
+            P.validate(dict(CFG, demo="maybe"))
 
     def test_yaml_values_are_normalized(self):
         cfg = dict(CFG, load=True, frag=0)

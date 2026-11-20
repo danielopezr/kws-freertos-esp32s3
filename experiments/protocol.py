@@ -1,7 +1,7 @@
 """UART protocol between the PC and the board (one text line per message).
 
     board -> PC   READY
-    PC -> board   CFG model=cnn affinity=split prio=higher load=on mem=sram alloc=static frag=0 seq=full seed=42
+    PC -> board   CFG model=cnn affinity=split prio=higher load=on mem=sram alloc=static frag=0 seq=full demo=off seed=42
     board -> PC   OK                      (or: ERR <reason>)
                   ... the run plays the test sequence (~5 min) ...
     board -> PC   DET,<sample>,<label_id>,<score>        one per detection
@@ -24,7 +24,11 @@ PARAMS = {
     "alloc": ("static", "dynamic"),
     "frag": ("0", "1", "2"),                # heap fragmentation pattern before loading the model
     "seq": ("full", "none"),                # none: only load the model (experiment C)
+    "demo": ("off", "on"),                  # on: OLED display for the presentation; never in experiments
 }
+
+# Keys that may be left out of a design; they take these values
+DEFAULTS = {"demo": "off"}
 
 # Summary fields the firmware sends in RESULT (missing ones are left empty in index.csv)
 RESULT_FIELDS = (
@@ -48,7 +52,7 @@ def normalize(value):
 
 
 def validate(cfg):
-    cfg = {k: normalize(v) for k, v in cfg.items()}
+    cfg = {k: normalize(v) for k, v in {**DEFAULTS, **cfg}.items()}
     unknown = set(cfg) - set(PARAMS)
     missing = set(PARAMS) - set(cfg)
     if unknown or missing:

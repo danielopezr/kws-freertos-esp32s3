@@ -24,7 +24,7 @@
 
 ```
 board -> PC   READY
-PC -> board   CFG model=cnn affinity=split prio=higher load=on mem=sram alloc=static frag=0 seq=full seed=42
+PC -> board   CFG model=cnn affinity=split prio=higher load=on mem=sram alloc=static frag=0 seq=full demo=off seed=42
 board -> PC   OK                              (or ERR <reason>)
 board -> PC   DET,<sample>,<label_id>,<score>  one per detection
 board -> PC   TASK,T3,stack_free_min=1200,cpu_pct=7.5
@@ -32,7 +32,7 @@ board -> PC   RESULT,inf_mean_us=7512,inf_sd_us=210,...,blocks_lost=0,alloc_fail
 board -> PC   DONE
 ```
 
-`sample` is the position in the test sequence where the detection fired; latency, missed words and false alarms are computed on the PC against [`test_sequence/labels.csv`](../test_sequence/labels.csv). Any other line (boot log) is only logged. `seq=none` loads the model without playing the sequence (experiment C). `RESULT` fields are listed in `protocol.RESULT_FIELDS`.
+`sample` is the position in the test sequence where the detection fired; latency, missed words and false alarms are computed on the PC against [`test_sequence/labels.csv`](../test_sequence/labels.csv). Any other line (boot log) is only logged. `seq=none` loads the model without playing the sequence (experiment C). `demo=on` turns on the OLED display (SSD1306, I2C on GPIO 8/9) for the presentation only; it defaults to `off`, and the runner refuses designs that turn it on, because redrawing the display competes with T1–T3. `RESULT` fields are listed in `protocol.RESULT_FIELDS`.
 
 ## Running
 

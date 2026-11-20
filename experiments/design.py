@@ -57,6 +57,8 @@ def treatments(d):
             cfg = validate(cfg)
         except ProtocolError as e:
             raise DesignError(f"{d['name']} treatment {factors}: {e}") from None
+        if cfg["demo"] != "off":
+            raise DesignError(f"{d['name']}: demo=on only for the presentation; the OLED would perturb the runs")
         out.append((i, factors, cfg))
     return out
 

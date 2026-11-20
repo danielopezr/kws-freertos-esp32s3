@@ -62,6 +62,16 @@ class TestDesigns(unittest.TestCase):
         self.assertTrue(all(c["affinity"] == "split" and c["prio"] == "lower" for c in best))
         self.assertEqual({c["model"] for c in best}, {"dnn", "cnn", "dscnn"})
 
+    def test_demo_is_refused_in_experiments(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "X.yaml"
+            text = (DESIGNS / "A.yaml").read_text().replace("seq: full", "seq: full\n  demo: 'on'")
+            path.write_text(text)
+            with self.assertRaisesRegex(D.DesignError, "demo"):
+                D.treatments(D.load(path))
+        for name in "ABC":
+            self.assertTrue(all(c["demo"] == "off" for _, _, c in D.treatments(D.load(DESIGNS / f"{name}.yaml"))))
+
     def test_invalid_level_is_reported(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "X.yaml"
