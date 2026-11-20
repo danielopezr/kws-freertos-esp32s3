@@ -19,8 +19,8 @@ Outputs in --out:
   manifest.json           parameters, counts, size and SHA-256 of sequence.raw
 
 `start`/`end` are where the clip audio sits; `voiced_start`/`voiced_end` are an
-energy-based estimate of the spoken word inside the clip (20 ms frames within
-VOICED_DB of the loudest frame). Detection latency is measured from `voiced_end`.
+energy-based estimate of the spoken word inside the clip (see voiced_range).
+Detection latency is measured from `voiced_end`.
 """
 
 import argparse
@@ -41,7 +41,9 @@ from kws import features as F  # noqa: E402
 PARTITIONS = ROOT / "firmware" / "partitions.csv"
 PARTITION_NAME = "sequence"
 ENERGY_FRAME = F.SAMPLE_RATE // 50  # 20 ms, one capture block
-VOICED_DB = 30.0
+VOICED_REL_DB = 25.0
+VOICED_ABOVE_FLOOR_DB = 10.0
+VOICED_MAX_GAP = 5  # frames (100 ms)
 
 
 def speaker(rel_path):
@@ -83,15 +85,37 @@ def select(test_files, rng, per_keyword=10, n_unknown=50):
 
 
 def voiced_range(x):
-    """(first, last+1) sample of the 20 ms frames within VOICED_DB of the loudest one."""
+    """(start, end) sample of the spoken word inside one clip, in 20 ms frames.
+
+    A frame is "active" when it is within VOICED_REL_DB of the loudest frame and at
+    least VOICED_ABOVE_FLOOR_DB above the clip's own noise floor (10th percentile),
+    so noisy recordings are not marked active end to end. The word is the run of
+    active frames around the loudest one, bridging pauses of up to VOICED_MAX_GAP
+    frames (stop closures); isolated clicks further away are ignored.
+    """
     n = max(1, len(x) // ENERGY_FRAME)
     frames = x[:n * ENERGY_FRAME].reshape(n, -1) if len(x) >= ENERGY_FRAME else x[None, :]
-    rms = np.sqrt((frames.astype(np.float64) ** 2).mean(axis=1))
+    rms = np.sqrt((np.asarray(frames, dtype=np.float64) ** 2).mean(axis=1))
     if rms.max() == 0:
         return 0, len(x)
-    db = 20 * np.log10(rms / rms.max() + 1e-12)
-    idx = np.nonzero(db >= -VOICED_DB)[0]
-    return int(idx[0] * ENERGY_FRAME), int(min(len(x), (idx[-1] + 1) * ENERGY_FRAME))
+    db = 20 * np.log10(rms + 1e-12)
+    thr = min(max(db.max() - VOICED_REL_DB, np.percentile(db, 10) + VOICED_ABOVE_FLOOR_DB), db.max())
+    active = np.nonzero(db >= thr)[0]
+    peak = int(db.argmax())
+    lo = hi = int(np.searchsorted(active, peak))
+    while hi + 1 < len(active) and active[hi + 1] - active[hi] <= VOICED_MAX_GAP + 1:
+        hi += 1
+    while lo > 0 and active[lo] - active[lo - 1] <= VOICED_MAX_GAP + 1:
+        lo -= 1
+    return int(active[lo] * ENERGY_FRAME), int(min(len(x), (active[hi] + 1) * ENERGY_FRAME))
+
+
+def label_voiced(pcm, rows):
+    """Fill voiced_start / voiced_end from the final int16 audio (so --relabel reproduces it)."""
+    for r in rows:
+        v0, v1 = voiced_range(pcm[r["start"]:r["end"]].astype(np.float64) / 32768)
+        r["voiced_start"], r["voiced_end"] = r["start"] + v0, r["start"] + v1
+    return rows
 
 
 def build(data_dir, seed=2026, per_keyword=10, n_unknown=50, gap_ms=1000, floor_dbfs=-60.0):
@@ -108,12 +132,22 @@ def build(data_dir, seed=2026, per_keyword=10, n_unknown=50, gap_ms=1000, floor_
         x = D.read_wav(Path(data_dir) / rel)[:slot]
         start = i * (gap + slot) + gap
         audio[start:start + len(x)] += x
-        v0, v1 = voiced_range(x)
         rows.append({"index": i, "label": D.LABELS[label], "label_id": label, "word": word,
                      "start": start, "end": start + len(x),
-                     "voiced_start": start + v0, "voiced_end": start + v1, "source": rel})
+                     "voiced_start": 0, "voiced_end": 0, "source": rel})
     pcm = np.clip(np.round(audio * 32768), -32768, 32767).astype("<i2")
-    return pcm, rows
+    return pcm, label_voiced(pcm, rows)
+
+
+def relabel(out):
+    """Recompute the voiced ranges of an existing build from sequence.raw (no dataset needed)."""
+    out = Path(out)
+    pcm = np.fromfile(out / "sequence.raw", dtype="<i2")
+    with open(out / "labels.csv", newline="") as f:
+        rows = [{k: (v if k in ("label", "word", "source") else int(v)) for k, v in r.items()}
+                for r in csv.DictReader(f)]
+    params = json.loads((out / "manifest.json").read_text())["params"]
+    return write_outputs(out, pcm, label_voiced(pcm, rows), params, wav=False)
 
 
 def partition_size(name=PARTITION_NAME, path=PARTITIONS):
@@ -193,8 +227,14 @@ def main():
     ap.add_argument("--gap-ms", type=int, default=1000)
     ap.add_argument("--floor-dbfs", type=float, default=-60.0, help="RMS of the constant noise floor")
     ap.add_argument("--no-wav", action="store_true")
+    ap.add_argument("--relabel", action="store_true",
+                    help="only recompute voiced ranges of the build in --out from its sequence.raw")
     args = ap.parse_args()
 
+    if args.relabel:
+        m = relabel(args.out)
+        print(f"relabelled {m['items']} utterances in {args.out} (sha256 {m['sha256']})")
+        return
     if args.download:
         D.download(args.data_dir)
     params = {k: getattr(args, k) for k in ("seed", "per_keyword", "unknown", "gap_ms", "floor_dbfs")}
