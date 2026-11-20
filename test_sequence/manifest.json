@@ -1,0 +1,32 @@
+{
+  "params": {
+    "seed": 2026,
+    "per_keyword": 10,
+    "unknown": 50,
+    "gap_ms": 1000,
+    "floor_dbfs": -60.0
+  },
+  "sample_rate": 16000,
+  "samples": 4800000,
+  "seconds": 300.0,
+  "bytes": 9600000,
+  "partition_bytes": 10485760,
+  "sha256": "b8220a2fba3f6d9e3d2f189a93ab3dd4927040da91c1ef02d5abe0eeefbedaca",
+  "items": 150,
+  "counts": {
+    "_unknown_": 50,
+    "yes": 10,
+    "no": 10,
+    "up": 10,
+    "down": 10,
+    "left": 10,
+    "right": 10,
+    "on": 10,
+    "off": 10,
+    "stop": 10,
+    "go": 10
+  },
+  "speakers": 150,
+  "dataset": "http://download.tensorflow.org/data/speech_commands_v0.02.tar.gz",
+  "split": "test"
+}
