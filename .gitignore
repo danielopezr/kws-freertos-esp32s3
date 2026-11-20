@@ -31,3 +31,6 @@ test_sequence/out/
 Thumbs.db
 desktop.ini
 ~$*
+
+# Training outputs (C arrays are copied into firmware/ on purpose)
+training/artifacts/
