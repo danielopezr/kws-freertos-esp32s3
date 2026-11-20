@@ -1,0 +1,6 @@
+# Name,     Type, SubType,  Offset,   Size
+nvs,        data, nvs,      0x9000,   0x6000
+phy_init,   data, phy,      0xf000,   0x1000
+factory,    app,  factory,  0x10000,  0x300000
+# Fixed 5-minute test sequence (16 kHz, 16-bit, ~9.6 MB), written by test_sequence/
+sequence,   data, 0x40,     0x310000, 0xA00000
