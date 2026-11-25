@@ -96,7 +96,6 @@ struct run_t {
     kws_cfg_t cfg;
     uint32_t caps;          // heap caps of the buffers and the arena (mem factor)
     uint32_t total_blocks;  // blocks to play; 0 = endless (demo)
-    uint32_t offset;        // playback starts this many samples late (0..1599, from the run seed)
     // T1
     i2s_chan_handle_t rx;
     QueueHandle_t q;
@@ -196,19 +195,87 @@ void finish(run_t &r, EventBits_t bit)
     vTaskSuspend(nullptr);  // the run collects its stack watermark, then deletes it
 }
 
-// Stream block idx carries sequence samples from idx * kBlock - offset on; silence before the
-// sequence starts and after it ends
-void copy_sequence(int16_t *dst, uint32_t idx, uint32_t offset)
+// ---------------------------------------------------------------- playback timeline
+// Every word of the sequence ends on the 20 ms frame grid, so one common delay per run would move
+// all of them against the 100 ms inference grid at once. Instead, d_i samples of silence (0..1599,
+// drawn from the run seed) are inserted 100 ms before the slot of each utterance i: every word
+// meets the inference grid at its own phase, as real speech would, the words and the audio around
+// them stay intact, and the latency of a word is the same in stream and in sequence samples.
+constexpr int kItems = KWS_SEQ_N_ITEMS;
+constexpr uint32_t kJitterMax = kInferEvery * kBlock;   // 1600 samples = 100 ms
+constexpr uint32_t kJitterLead = kInferEvery * kBlock;  // insertion point: 100 ms before the slot
+
+struct timeline_t {
+    uint32_t at[kItems];   // insertion point, in sequence samples
+    uint32_t len[kItems];  // inserted silence, samples
+    uint32_t cum[kItems];  // silence inserted up to and including insertion i
+    uint32_t stream_at(int i) const { return at[i] + (i ? cum[i - 1] : 0); }
+};
+timeline_t g_tl;
+
+void timeline_build(uint32_t seed)
 {
-    const int64_t q0 = (int64_t)idx * kBlock - offset;
-    const int64_t total = KWS_SEQ_TOTAL_SAMPLES;
-    if (q0 >= 0 && q0 + kBlock <= total) {
-        memcpy(dst, g_seq + q0, kBlock * sizeof(int16_t));
-        return;
+    uint32_t x = seed ? seed : 0x9e3779b9u, sum = 0;
+    for (int i = 0; i < kItems; i++) {
+        x ^= x << 13;  // xorshift32
+        x ^= x >> 17;
+        x ^= x << 5;
+        g_tl.at[i] = kws_seq_items[i].start - kJitterLead;
+        g_tl.len[i] = x % kJitterMax;
+        sum += g_tl.len[i];
+        g_tl.cum[i] = sum;
     }
-    for (int i = 0; i < kBlock; i++) {
-        const int64_t q = q0 + i;
-        dst[i] = q >= 0 && q < total ? g_seq[q] : 0;
+}
+
+// Last insertion that starts at or before stream sample s, or -1
+int insertion_before(uint32_t s)
+{
+    int lo = 0, hi = kItems - 1, j = -1;
+    while (lo <= hi) {
+        const int mid = (lo + hi) / 2;
+        if (g_tl.stream_at(mid) <= s) {
+            j = mid;
+            lo = mid + 1;
+        } else {
+            hi = mid - 1;
+        }
+    }
+    return j;
+}
+
+// Stream sample -> sequence sample; inside an inserted silence, its insertion point
+uint32_t stream_to_seq(uint32_t s)
+{
+    const int j = insertion_before(s);
+    if (j < 0) {
+        return s;
+    }
+    if (s < g_tl.stream_at(j) + g_tl.len[j]) {
+        return g_tl.at[j];
+    }
+    return s - g_tl.cum[j];
+}
+
+// Stream block [s0, s0 + kBlock): the sequence with the inserted silences; silence after its end
+void copy_stream(int16_t *dst, uint32_t s0)
+{
+    int i = 0;
+    while (i < kBlock) {
+        const uint32_t s = s0 + i;
+        const int j = insertion_before(s);
+        int n;
+        if (j >= 0 && s < g_tl.stream_at(j) + g_tl.len[j]) {
+            n = (int)std::min<uint32_t>(kBlock - i, g_tl.stream_at(j) + g_tl.len[j] - s);
+            memset(dst + i, 0, n * sizeof(int16_t));
+        } else {
+            const uint32_t next = j + 1 < kItems ? g_tl.stream_at(j + 1) : UINT32_MAX;
+            n = (int)std::min<uint32_t>(kBlock - i, next - s);
+            const uint32_t q = s - (j >= 0 ? g_tl.cum[j] : 0);
+            const int avail = q < KWS_SEQ_TOTAL_SAMPLES ? (int)std::min<uint32_t>(n, KWS_SEQ_TOTAL_SAMPLES - q) : 0;
+            memcpy(dst + i, g_seq + q, avail * sizeof(int16_t));
+            memset(dst + i + avail, 0, (n - avail) * sizeof(int16_t));
+        }
+        i += n;
     }
 }
 
@@ -243,10 +310,11 @@ void t1_capture(void *arg)
         bool mark = false;
         if (r.total_blocks) {
             const uint32_t lo = idx * kBlock, hi = lo + kBlock;  // stream samples
-            while (next_item < KWS_SEQ_N_ITEMS && kws_seq_items[next_item].voiced_end + r.offset < lo) {
+            // utterance i is played g_tl.cum[i] samples late (its own silence was inserted before it)
+            while (next_item < kItems && kws_seq_items[next_item].voiced_end + g_tl.cum[next_item] < lo) {
                 next_item++;
             }
-            mark = next_item < KWS_SEQ_N_ITEMS && kws_seq_items[next_item].voiced_end + r.offset < hi;
+            mark = next_item < kItems && kws_seq_items[next_item].voiced_end + g_tl.cum[next_item] < hi;
             if (mark) {
                 gpio_set_level((gpio_num_t)PROBE_MARK_GPIO, 1);
             }
@@ -262,7 +330,7 @@ void t1_capture(void *arg)
                 r.ring_ovf++;
             } else {
                 if (r.total_blocks) {
-                    copy_sequence(dst, idx, r.offset);
+                    copy_stream(dst, idx * kBlock);
                 } else {
                     for (int i = 0; i < kBlock; i++) {
                         dst[i] = (int16_t)(dma[i] >> 16);  // INMP441: 24-bit sample, MSB aligned in 32
@@ -383,10 +451,9 @@ void t3_inference(void *arg)
             if (top >= KWS_FIRST_KEYWORD && avg[top] >= r.cfg.threshold &&
                 (!r.last_det_us || t_det - r.last_det_us >= kRefractoryUs)) {
                 r.last_det_us = t_det;
-                // Instant of the decision as a sample of the sequence: stream block 0 ended at t_first,
-                // and the sequence started r.offset samples into the stream
+                // Instant of the decision as a sample of the sequence: stream block 0 ended at t_first
                 const int64_t stream = kBlock + (t_det - r.t_first) * KWS_SEQ_SAMPLE_RATE / 1000000;
-                const uint32_t sample = stream > r.offset ? (uint32_t)(stream - r.offset) : 0;
+                const uint32_t sample = r.total_blocks ? stream_to_seq((uint32_t)stream) : (uint32_t)stream;
                 const uint8_t score = (uint8_t)lrintf(avg[top] * 255.0f);
                 gpio_set_level((gpio_num_t)PROBE_LED_GPIO, 1);
                 r.led_on_ms = (uint32_t)(t_det / 1000) | 1u;
@@ -595,10 +662,11 @@ void pipeline_run(const kws_cfg_t *cfg)
     r.cfg = *cfg;
     r.caps = (cfg->psram ? MALLOC_CAP_SPIRAM : MALLOC_CAP_INTERNAL) | MALLOC_CAP_8BIT;
     r.largest_min = SIZE_MAX;
-    // Replicates differ by where the words fall relative to the 100 ms inference grid, as speech
-    // arrives at any instant: the run seed delays the playback by 0..99.9 ms
-    r.offset = play ? cfg->seed % (kInferEvery * kBlock) : 0;
-    r.total_blocks = play ? (KWS_SEQ_TOTAL_SAMPLES + r.offset + kBlock - 1) / kBlock : 0;
+    // Replicates differ in where each word falls relative to the 100 ms inference grid (seed)
+    if (play) {
+        timeline_build(cfg->seed);
+        r.total_blocks = (KWS_SEQ_TOTAL_SAMPLES + g_tl.cum[kItems - 1] + kBlock - 1) / kBlock;
+    }
 
     // 1. Fragmentation pattern, then load the model (the arena is the largest allocation)
     frag_apply(cfg->frag);
@@ -686,9 +754,10 @@ void pipeline_run(const kws_cfg_t *cfg)
     print_heap_fields(largest_before);
     printf(",arena_bytes=%u,alloc_fail=0,load_us=%lld,largest_block_min=%u,run_alloc_fail=%" PRIu32
            ",inf_skipped=%" PRIu32 ",inf_fail=%" PRIu32 ",detections=%" PRIu32 ",threshold=%.2f"
-           ",t1_gap_max_us=%lld,run_ms=%lld,seq_offset=%" PRIu32 "\n",
+           ",t1_gap_max_us=%lld,run_ms=%lld,seq_inserted=%" PRIu32 "\n",
            (unsigned)arena_used, (long long)load_us, (unsigned)r.largest_min, r.run_alloc_fail, r.inf_skipped,
-           r.inf_fail, r.n_det, cfg->threshold, (long long)r.t1_gap_max, (long long)(run_us / 1000), r.offset);
+           r.inf_fail, r.n_det, cfg->threshold, (long long)r.t1_gap_max, (long long)(run_us / 1000),
+           g_tl.cum[kItems - 1]);
     printf("DONE\n");
     fflush(stdout);
     release(r);

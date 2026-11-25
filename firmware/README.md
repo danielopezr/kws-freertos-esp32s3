@@ -68,7 +68,7 @@ Same for every run ([`main/pipeline.cc`](main/pipeline.cc)); only the CFG factor
 | T1 → T2 queue | 8 blocks (160 ms); a block that finds it full is lost (`ring_ovf`) |
 | Features | 49 × 40 MFCC (1 s), normalised with the training mean/std, quantised with the model's input scale |
 | Decision | softmax, mean of the last 3 outputs, keyword if ≥ 0.80 (`thr=` in CFG to change it), 1 s refractory |
-| Replicates | playback starts `seed % 1600` samples (0–99.9 ms) late, so each replicate meets the 100 ms inference grid at a different phase, as real speech would (`seq_offset` in RESULT); detections are still reported in sequence samples |
+| Replicates | before each utterance, 0–99.9 ms of silence (drawn from the run seed) is inserted 100 ms before its slot, so every word meets the 100 ms inference grid at its own phase, as real speech would (`seq_inserted` in RESULT, ~7.5 s per run). One common delay per run is not enough: every `voiced_end` lies on the 20 ms frame grid, so it would move all words at once and make the run mean depend on the delay. Detections are reported in sequence samples, so a word's latency is unchanged |
 | `alloc=static` | tasks with `xTaskCreateStatic` (stacks reserved at link time), block pool and staging buffer allocated once |
 | `alloc=dynamic` | `xTaskCreate`; T1 mallocs each block and T2 frees it, T3 mallocs its input buffer each inference |
 | `mem` | buffers (blocks, feature ring, staging) and the tensor arena in internal SRAM or PSRAM; stacks are always internal, model weights stay in flash |
