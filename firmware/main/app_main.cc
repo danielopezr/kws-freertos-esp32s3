@@ -1,25 +1,32 @@
-// Phase 1 skeleton: proves that the toolchain, PSRAM, the MFCC component and
-// TensorFlow Lite Micro (esp-tflite-micro) build, link and run on the ESP32-S3,
-// then runs the GPIO probe test (plan step 5) to validate the measurement chain
-// with the logic analyzer. The real tasks T1-T4 replace the probe test later.
+// Board side of the experiments. After boot it prints READY and waits for one command line:
+//
+//   CFG ...          one experiment run (experiments/protocol.py): OK, DET/TASK/RESULT lines, DONE
+//   EVAL model=cnn [mem=psram]   offline accuracy check on the 150 clips of the test sequence
+//   ARENA            tensor arena each model really needs
+//   PROBE            GPIO probe test for the logic analyzer (plan step 5), until reset
+//
+// runner.py resets the board before every run, so each run starts from a fresh boot.
 
-#include <cmath>
 #include <cstdio>
+#include <cstring>
 
+#include "driver/uart.h"
+#include "driver/uart_vfs.h"
 #include "esp_chip_info.h"
 #include "esp_heap_caps.h"
 #include "esp_system.h"
-#include "esp_timer.h"
+#include "esp_task_wdt.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "kws_mfcc.h"
+#include "kws_models.h"
+#include "pipeline.h"
 #include "probes.h"
-#include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
+#include "run_config.h"
 
 namespace {
 
-// Every op used by the DNN, CNN and DS-CNN models
-tflite::MicroMutableOpResolver<8> g_resolver;
+constexpr uart_port_t kUart = UART_NUM_0;  // console, wired to the USB-UART bridge (CH343)
 
 void report_system()
 {
@@ -32,49 +39,93 @@ void report_system()
            (unsigned)heap_caps_get_free_size(MALLOC_CAP_SPIRAM));
 }
 
-void check_tflm()
+// Blocking read of one line (without the line ending)
+void read_line(char *buf, size_t len)
 {
-    g_resolver.AddConv2D();
-    g_resolver.AddDepthwiseConv2D();
-    g_resolver.AddFullyConnected();
-    g_resolver.AddMean();
-    g_resolver.AddAveragePool2D();
-    g_resolver.AddReshape();
-    g_resolver.AddQuantize();
-    g_resolver.AddDequantize();
-    printf("TFLM op resolver ready\n");
+    size_t n = 0;
+    for (;;) {
+        uint8_t c;
+        if (uart_read_bytes(kUart, &c, 1, portMAX_DELAY) != 1) {
+            continue;
+        }
+        if (c == '\n' || c == '\r') {
+            if (n == 0) {
+                continue;  // empty line or the second half of CRLF
+            }
+            buf[n] = '\0';
+            return;
+        }
+        if (n + 1 < len) {
+            buf[n++] = (char)c;
+        }
+    }
 }
 
-void check_mfcc()
+// Value of key=... in a command line, or nullptr
+const char *arg(const char *line, const char *key, char *out, size_t len)
 {
-    static int16_t tone[KWS_MFCC_FRAME_LEN];
-    static float coeffs[KWS_MFCC_N_COEFFS];
-    for (int i = 0; i < KWS_MFCC_FRAME_LEN; i++) {
-        tone[i] = (int16_t)(10000.0f * sinf(2.0f * 3.14159265f * 1000.0f * i / KWS_MFCC_SAMPLE_RATE));
+    const size_t k = strlen(key);
+    for (const char *p = strstr(line, key); p; p = strstr(p + 1, key)) {
+        if ((p == line || p[-1] == ' ') && p[k] == '=') {
+            size_t n = strcspn(p + k + 1, " \t");
+            n = n < len - 1 ? n : len - 1;
+            memcpy(out, p + k + 1, n);
+            out[n] = '\0';
+            return out;
+        }
     }
-    kws_mfcc_init();
-    const int64_t t0 = esp_timer_get_time();
-    kws_mfcc_frame(tone, coeffs);
-    const int64_t t1 = esp_timer_get_time();
-    printf("MFCC 1 kHz tone: c0=%.4f c1=%.4f | %lld us per frame\n", coeffs[0], coeffs[1], (long long)(t1 - t0));
+    return nullptr;
 }
 
 }  // namespace
 
 extern "C" void app_main(void)
 {
-    report_system();
-    check_tflm();
-    check_mfcc();
-    printf("skeleton OK\n");
-
+    ESP_ERROR_CHECK(uart_driver_install(kUart, 2048, 4096, 0, nullptr, 0));
+    uart_vfs_dev_use_driver(kUart);
+    // Some treatments keep a core 100 % busy on purpose (e.g. T3 above T1 plus the load on core 0):
+    // turn the task watchdog off (it only watches the idle tasks) so it never prints during a run
+    esp_task_wdt_deinit();
     probes_init();
-    probes_start_test();
-    printf("probe test running: T1 %d ms/%d us, T2 %d ms/%d us, T3 %d ms/%d us, T4 %d ms/%d us\n",
-           PROBE_T1_PERIOD_MS, PROBE_T1_BUSY_US, PROBE_T2_PERIOD_MS, PROBE_T2_BUSY_US,
-           PROBE_T3_PERIOD_MS, PROBE_T3_BUSY_US, PROBE_T4_PERIOD_MS, PROBE_T4_BUSY_US);
+    kws_mfcc_init();
+    report_system();
+    const bool seq_ok = pipeline_init();
+    printf("sequence partition: %s\n", seq_ok ? "mapped" : "MISSING (flash test_sequence/out/sequence.raw)");
+
+    char line[256], err[96], val[16];
     for (;;) {
-        vTaskDelay(pdMS_TO_TICKS(5000));
-        probes_report();
+        printf("READY\n");
+        fflush(stdout);
+        read_line(line, sizeof line);
+
+        if (strncmp(line, "CFG", 3) == 0) {
+            kws_cfg_t cfg;
+            if (!kws_parse_cfg(line, &cfg, err, sizeof err)) {
+                printf("ERR %s\n", err);
+                continue;
+            }
+            pipeline_run(&cfg);
+        } else if (strncmp(line, "EVAL", 4) == 0) {
+            const int model = kws_model_by_name(arg(line, "model", val, sizeof val) ? val : "cnn");
+            const bool psram = arg(line, "mem", val, sizeof val) && strcmp(val, "psram") == 0;
+            if (model < 0) {
+                printf("ERR unknown model\n");
+                continue;
+            }
+            pipeline_eval(model, psram);
+        } else if (strcmp(line, "ARENA") == 0) {
+            pipeline_arena();
+        } else if (strcmp(line, "PROBE") == 0) {
+            probes_start_test();
+            printf("probe test running: T1 %d ms/%d us, T2 %d ms/%d us, T3 %d ms/%d us, T4 %d ms/%d us\n",
+                   PROBE_T1_PERIOD_MS, PROBE_T1_BUSY_US, PROBE_T2_PERIOD_MS, PROBE_T2_BUSY_US, PROBE_T3_PERIOD_MS,
+                   PROBE_T3_BUSY_US, PROBE_T4_PERIOD_MS, PROBE_T4_BUSY_US);
+            for (;;) {
+                vTaskDelay(pdMS_TO_TICKS(5000));
+                probes_report();
+            }
+        } else {
+            printf("ERR unknown command: %.32s\n", line);
+        }
     }
 }
