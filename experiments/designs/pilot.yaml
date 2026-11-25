@@ -1,0 +1,15 @@
+# Pilot (plan step 12): the base configuration 5 times. Its run-to-run spread of the detection
+# latency sets the number of replicates of A-D, and it checks the decision threshold (0.80).
+name: pilot
+replicates: 5
+seed: 1100
+fixed:
+  affinity: none
+  prio: equal
+  load: "off"
+  mem: sram
+  alloc: static
+  frag: "0"
+  seq: full
+factors:
+  model: [cnn]
