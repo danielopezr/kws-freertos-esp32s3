@@ -69,6 +69,10 @@ bool kws_parse_cfg(const char *line, kws_cfg_t *cfg, char *err, size_t errlen)
             }
             continue;
         }
+        if (strcmp(k, "secs") == 0) {
+            cfg->max_seconds = (uint32_t)strtoul(v, nullptr, 10);
+            continue;
+        }
         int i = 0;
         while (i < kNKeys && strcmp(k, kKeys[i].name) != 0) {
             i++;

@@ -582,8 +582,12 @@ void print_task(const char *name, TaskHandle_t h, const work_t &w, int64_t run_u
     TaskStatus_t st;
     vTaskGetInfo(h, &st, pdTRUE, eInvalid);
     const double cpu = run_us > 0 ? 100.0 * st.ulRunTimeCounter / run_us : 0.0;
-    printf("TASK,%s,stack_free_min=%u,cpu_pct=%.2f,activations=%" PRIu32 ",resp_mean_us=%.0f,resp_max_us=%lld\n", name,
-           (unsigned)st.usStackHighWaterMark, cpu, w.n, w.n ? (double)w.sum_us / w.n : 0.0, (long long)w.max_us);
+    // Core the task ended up on: with affinity=none, ESP-IDF pins a task to the core where it first
+    // uses the FPU (T2 and T3 use floats), so "none" becomes a placement decided at start-up (-1 = free)
+    const BaseType_t core = xTaskGetCoreID(h);
+    printf("TASK,%s,core=%d,stack_free_min=%u,cpu_pct=%.2f,activations=%" PRIu32 ",resp_mean_us=%.0f,resp_max_us=%lld\n",
+           name, core == tskNO_AFFINITY ? -1 : (int)core, (unsigned)st.usStackHighWaterMark, cpu, w.n,
+           w.n ? (double)w.sum_us / w.n : 0.0, (long long)w.max_us);
 }
 
 void print_heap_fields(size_t largest_before)
@@ -668,6 +672,9 @@ void pipeline_run(const kws_cfg_t *cfg)
     if (play) {
         timeline_build(cfg->seed);
         r.total_blocks = (KWS_SEQ_TOTAL_SAMPLES + g_tl.cum[kItems - 1] + kBlock - 1) / kBlock;
+        if (cfg->max_seconds) {
+            r.total_blocks = std::min<uint32_t>(r.total_blocks, cfg->max_seconds * (KWS_SEQ_SAMPLE_RATE / kBlock));
+        }
     }
 
     // 1. Fragmentation pattern, then load the model (the arena is the largest allocation)

@@ -2,7 +2,8 @@
 //
 //   CFG model=cnn affinity=split prio=higher load=on mem=sram alloc=static frag=0 seq=full demo=off seed=42
 //
-// Every key is required; `thr=<0..1>` is optional (decision threshold, default KWS_DEFAULT_THRESHOLD).
+// Every key is required. Optional, never sent by runner.py: `thr=<0..1>` (decision threshold, default
+// KWS_DEFAULT_THRESHOLD) and `secs=<n>` (play only the first n seconds: smoke tests of a configuration).
 #pragma once
 
 #include <cstddef>
@@ -25,6 +26,7 @@ struct kws_cfg_t {
     bool demo;           // live microphone, endless, detections printed as they happen
     uint32_t seed;
     float threshold;
+    uint32_t max_seconds;  // 0 = the whole sequence
 };
 
 // Parse a CFG line. On error returns false and writes the reason into err.
