@@ -1,0 +1,1388 @@
+{
+ "design": "B",
+ "fingerprint": "a38c7be4026a8bba",
+ "seed": 1102,
+ "replicates": 5,
+ "runs": [
+  {
+   "order": 1,
+   "run_id": "B-T09-R3",
+   "treatment": 9,
+   "replicate": 3,
+   "seed": 48954481,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 2,
+   "run_id": "B-T07-R2",
+   "treatment": 7,
+   "replicate": 2,
+   "seed": 1027622816,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 3,
+   "run_id": "B-T06-R2",
+   "treatment": 6,
+   "replicate": 2,
+   "seed": 645876852,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 4,
+   "run_id": "B-T01-R4",
+   "treatment": 1,
+   "replicate": 4,
+   "seed": 1324943878,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 5,
+   "run_id": "B-T11-R1",
+   "treatment": 11,
+   "replicate": 1,
+   "seed": 707240100,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 6,
+   "run_id": "B-T06-R4",
+   "treatment": 6,
+   "replicate": 4,
+   "seed": 1780328099,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 7,
+   "run_id": "B-T05-R2",
+   "treatment": 5,
+   "replicate": 2,
+   "seed": 968134818,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 8,
+   "run_id": "B-T02-R3",
+   "treatment": 2,
+   "replicate": 3,
+   "seed": 1990461747,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 9,
+   "run_id": "B-T03-R5",
+   "treatment": 3,
+   "replicate": 5,
+   "seed": 628909008,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 10,
+   "run_id": "B-T08-R4",
+   "treatment": 8,
+   "replicate": 4,
+   "seed": 1926239136,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 11,
+   "run_id": "B-T08-R1",
+   "treatment": 8,
+   "replicate": 1,
+   "seed": 1803079073,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 12,
+   "run_id": "B-T04-R2",
+   "treatment": 4,
+   "replicate": 2,
+   "seed": 339646826,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 13,
+   "run_id": "B-T02-R5",
+   "treatment": 2,
+   "replicate": 5,
+   "seed": 1283442542,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 14,
+   "run_id": "B-T11-R4",
+   "treatment": 11,
+   "replicate": 4,
+   "seed": 2084907271,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 15,
+   "run_id": "B-T07-R5",
+   "treatment": 7,
+   "replicate": 5,
+   "seed": 1954864835,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 16,
+   "run_id": "B-T08-R2",
+   "treatment": 8,
+   "replicate": 2,
+   "seed": 1324091545,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 17,
+   "run_id": "B-T12-R1",
+   "treatment": 12,
+   "replicate": 1,
+   "seed": 1622137407,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 18,
+   "run_id": "B-T03-R4",
+   "treatment": 3,
+   "replicate": 4,
+   "seed": 616826341,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 19,
+   "run_id": "B-T09-R2",
+   "treatment": 9,
+   "replicate": 2,
+   "seed": 1122997180,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 20,
+   "run_id": "B-T04-R5",
+   "treatment": 4,
+   "replicate": 5,
+   "seed": 1556661295,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 21,
+   "run_id": "B-T05-R4",
+   "treatment": 5,
+   "replicate": 4,
+   "seed": 1538449203,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 22,
+   "run_id": "B-T06-R5",
+   "treatment": 6,
+   "replicate": 5,
+   "seed": 195088540,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 23,
+   "run_id": "B-T05-R1",
+   "treatment": 5,
+   "replicate": 1,
+   "seed": 795034117,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 24,
+   "run_id": "B-T10-R3",
+   "treatment": 10,
+   "replicate": 3,
+   "seed": 681353619,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 25,
+   "run_id": "B-T09-R5",
+   "treatment": 9,
+   "replicate": 5,
+   "seed": 1989949169,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 26,
+   "run_id": "B-T01-R1",
+   "treatment": 1,
+   "replicate": 1,
+   "seed": 1564579036,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 27,
+   "run_id": "B-T08-R3",
+   "treatment": 8,
+   "replicate": 3,
+   "seed": 298373685,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 28,
+   "run_id": "B-T06-R1",
+   "treatment": 6,
+   "replicate": 1,
+   "seed": 1229941266,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 29,
+   "run_id": "B-T12-R2",
+   "treatment": 12,
+   "replicate": 2,
+   "seed": 1145038749,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 30,
+   "run_id": "B-T01-R5",
+   "treatment": 1,
+   "replicate": 5,
+   "seed": 1059826307,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 31,
+   "run_id": "B-T07-R1",
+   "treatment": 7,
+   "replicate": 1,
+   "seed": 1478818922,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 32,
+   "run_id": "B-T09-R1",
+   "treatment": 9,
+   "replicate": 1,
+   "seed": 1277325384,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 33,
+   "run_id": "B-T12-R3",
+   "treatment": 12,
+   "replicate": 3,
+   "seed": 335247201,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 34,
+   "run_id": "B-T07-R4",
+   "treatment": 7,
+   "replicate": 4,
+   "seed": 1035995195,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 35,
+   "run_id": "B-T12-R5",
+   "treatment": 12,
+   "replicate": 5,
+   "seed": 1272377746,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 36,
+   "run_id": "B-T02-R1",
+   "treatment": 2,
+   "replicate": 1,
+   "seed": 686888271,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 37,
+   "run_id": "B-T03-R3",
+   "treatment": 3,
+   "replicate": 3,
+   "seed": 670263667,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 38,
+   "run_id": "B-T04-R1",
+   "treatment": 4,
+   "replicate": 1,
+   "seed": 1218318603,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 39,
+   "run_id": "B-T10-R1",
+   "treatment": 10,
+   "replicate": 1,
+   "seed": 386225169,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 40,
+   "run_id": "B-T04-R3",
+   "treatment": 4,
+   "replicate": 3,
+   "seed": 1983684629,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 41,
+   "run_id": "B-T07-R3",
+   "treatment": 7,
+   "replicate": 3,
+   "seed": 985476560,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 42,
+   "run_id": "B-T01-R3",
+   "treatment": 1,
+   "replicate": 3,
+   "seed": 976054511,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 43,
+   "run_id": "B-T08-R5",
+   "treatment": 8,
+   "replicate": 5,
+   "seed": 640840387,
+   "factors": {
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 44,
+   "run_id": "B-T02-R2",
+   "treatment": 2,
+   "replicate": 2,
+   "seed": 2101361617,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 45,
+   "run_id": "B-T10-R2",
+   "treatment": 10,
+   "replicate": 2,
+   "seed": 734971381,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 46,
+   "run_id": "B-T05-R5",
+   "treatment": 5,
+   "replicate": 5,
+   "seed": 1472129717,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 47,
+   "run_id": "B-T10-R5",
+   "treatment": 10,
+   "replicate": 5,
+   "seed": 217450898,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 48,
+   "run_id": "B-T03-R2",
+   "treatment": 3,
+   "replicate": 2,
+   "seed": 1194019529,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 49,
+   "run_id": "B-T11-R5",
+   "treatment": 11,
+   "replicate": 5,
+   "seed": 1925057308,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 50,
+   "run_id": "B-T02-R4",
+   "treatment": 2,
+   "replicate": 4,
+   "seed": 1043213364,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 51,
+   "run_id": "B-T11-R3",
+   "treatment": 11,
+   "replicate": 3,
+   "seed": 595501588,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 52,
+   "run_id": "B-T01-R2",
+   "treatment": 1,
+   "replicate": 2,
+   "seed": 50740519,
+   "factors": {
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 53,
+   "run_id": "B-T04-R4",
+   "treatment": 4,
+   "replicate": 4,
+   "seed": 2076969005,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 54,
+   "run_id": "B-T05-R3",
+   "treatment": 5,
+   "replicate": 3,
+   "seed": 1942405884,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 55,
+   "run_id": "B-T11-R2",
+   "treatment": 11,
+   "replicate": 2,
+   "seed": 513442505,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 56,
+   "run_id": "B-T09-R4",
+   "treatment": 9,
+   "replicate": 4,
+   "seed": 2002497553,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 57,
+   "run_id": "B-T03-R1",
+   "treatment": 3,
+   "replicate": 1,
+   "seed": 589917242,
+   "factors": {
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "mem": "psram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 58,
+   "run_id": "B-T12-R4",
+   "treatment": 12,
+   "replicate": 4,
+   "seed": 925462250,
+   "factors": {
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "psram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 59,
+   "run_id": "B-T10-R4",
+   "treatment": 10,
+   "replicate": 4,
+   "seed": 1904640313,
+   "factors": {
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  },
+  {
+   "order": 60,
+   "run_id": "B-T06-R3",
+   "treatment": 6,
+   "replicate": 3,
+   "seed": 349744109,
+   "factors": {
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   },
+   "cfg": {
+    "demo": "off",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "mem": "sram",
+    "alloc": "dynamic"
+   }
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "status": "ok",
+ "result": {
+  "inferences": 271,
+  "inf_mean_us": 1130137,
+  "inf_sd_us": 1128,
+  "inf_p95_us": 1131692,
+  "inf_max_us": 1133054,
+  "blocks_total": 15373,
+  "blocks_lost": 2,
+  "dma_ovf": 2,
+  "ring_ovf": 0,
+  "heap_free_min": 295344,
+  "heap_largest_block": 8257536,
+  "psram_free_min": 7900072,
+  "arena_bytes": 458876,
+  "alloc_fail": 0,
+  "load_us": 13253,
+  "largest_block_min": 7864320,
+  "run_alloc_fail": 0,
+  "inf_skipped": 2784,
+  "inf_fail": 0,
+  "detections": 2,
+  "threshold": 0.8,
+  "t1_gap_max_us": 20076,
+  "run_ms": 307583,
+  "seq_inserted": 119090
+ },
+ "detections": [
+  {
+   "sample": 3901949,
+   "label_id": 11,
+   "score": 207
+  },
+  {
+   "sample": 3918911,
+   "label_id": 11,
+   "score": 207
+  }
+ ],
+ "tasks": {
+  "T1": {
+   "stack_free_min": 3284,
+   "cpu_pct": 0.74,
+   "activations": 15373,
+   "resp_mean_us": 107,
+   "resp_max_us": 212
+  },
+  "T2": {
+   "stack_free_min": 3356,
+   "cpu_pct": 10.24,
+   "activations": 15373,
+   "resp_mean_us": 2035,
+   "resp_max_us": 2448
+  },
+  "T3": {
+   "stack_free_min": 7524,
+   "cpu_pct": 99.67,
+   "activations": 271,
+   "resp_mean_us": 1131206,
+   "resp_max_us": 1134114
+  },
+  "T4": {
+   "stack_free_min": 2400,
+   "cpu_pct": 0.08,
+   "activations": 3076,
+   "resp_mean_us": 46,
+   "resp_max_us": 122
+  }
+ },
+ "parse_errors": 0,
+ "duration_s": 308.72,
+ "run_id": "B-T12-R2",
+ "order": 29,
+ "seed": 1145038749,
+ "factors": {
+  "model": "dscnn",
+  "mem": "psram",
+  "alloc": "dynamic"
+ },
+ "cfg": {
+  "demo": "off",
+  "affinity": "split",
+  "prio": "equal",
+  "load": "off",
+  "frag": "0",
+  "seq": "full",
+  "model": "dscnn",
+  "mem": "psram",
+  "alloc": "dynamic"
+ },
+ "attempts": 1,
+ "started": "2026-11-26T14:42:30+00:00"
+}

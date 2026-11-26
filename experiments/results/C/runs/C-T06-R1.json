@@ -1,0 +1,37 @@
+{
+ "status": "ok",
+ "result": {
+  "arena_bytes": 460800,
+  "alloc_fail": 1,
+  "alloc_err": 1,
+  "load_us": 150,
+  "heap_free_min": 306724,
+  "heap_largest_block": 98304,
+  "psram_free_min": 8378584,
+  "frag_blocks": 37
+ },
+ "detections": [],
+ "tasks": {},
+ "parse_errors": 0,
+ "duration_s": 1.035,
+ "run_id": "C-T06-R1",
+ "order": 7,
+ "seed": 1720465919,
+ "factors": {
+  "frag": "1",
+  "model": "dscnn"
+ },
+ "cfg": {
+  "demo": "off",
+  "affinity": "none",
+  "prio": "equal",
+  "load": "off",
+  "mem": "sram",
+  "alloc": "dynamic",
+  "seq": "none",
+  "frag": "1",
+  "model": "dscnn"
+ },
+ "attempts": 1,
+ "started": "2026-11-26T04:55:21+00:00"
+}

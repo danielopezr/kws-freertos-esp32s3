@@ -1,0 +1,38 @@
+{
+ "status": "ok",
+ "result": {
+  "arena_bytes": 460800,
+  "alloc_fail": 1,
+  "alloc_err": 1,
+  "load_us": 145,
+  "heap_free_min": 323116,
+  "heap_largest_block": 262144,
+  "psram_free_min": 8378584,
+  "frag_blocks": 0
+ },
+ "detections": [],
+ "tasks": {},
+ "parse_errors": 0,
+ "duration_s": 1.042,
+ "run_id": "B-T09-R4",
+ "order": 56,
+ "seed": 2002497553,
+ "factors": {
+  "model": "dscnn",
+  "mem": "sram",
+  "alloc": "static"
+ },
+ "cfg": {
+  "demo": "off",
+  "affinity": "split",
+  "prio": "equal",
+  "load": "off",
+  "frag": "0",
+  "seq": "full",
+  "model": "dscnn",
+  "mem": "sram",
+  "alloc": "static"
+ },
+ "attempts": 1,
+ "started": "2026-11-26T16:40:59+00:00"
+}

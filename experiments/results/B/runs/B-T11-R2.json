@@ -1,0 +1,83 @@
+{
+ "status": "ok",
+ "result": {
+  "inferences": 272,
+  "inf_mean_us": 1128837,
+  "inf_sd_us": 3635,
+  "inf_p95_us": 1130477,
+  "inf_max_us": 1131496,
+  "blocks_total": 15370,
+  "blocks_lost": 45,
+  "dma_ovf": 45,
+  "ring_ovf": 0,
+  "heap_free_min": 317328,
+  "heap_largest_block": 8257536,
+  "psram_free_min": 7894316,
+  "arena_bytes": 458876,
+  "alloc_fail": 0,
+  "load_us": 13249,
+  "largest_block_min": 7864320,
+  "run_alloc_fail": 0,
+  "inf_skipped": 2791,
+  "inf_fail": 0,
+  "detections": 0,
+  "threshold": 0.8,
+  "t1_gap_max_us": 20063,
+  "run_ms": 308357,
+  "seq_inserted": 118231
+ },
+ "detections": [],
+ "tasks": {
+  "T1": {
+   "stack_free_min": 3284,
+   "cpu_pct": 0.7,
+   "activations": 15370,
+   "resp_mean_us": 100,
+   "resp_max_us": 190
+  },
+  "T2": {
+   "stack_free_min": 3380,
+   "cpu_pct": 10.13,
+   "activations": 15370,
+   "resp_mean_us": 2019,
+   "resp_max_us": 2414
+  },
+  "T3": {
+   "stack_free_min": 7524,
+   "cpu_pct": 99.67,
+   "activations": 272,
+   "resp_mean_us": 1129890,
+   "resp_max_us": 1132551
+  },
+  "T4": {
+   "stack_free_min": 2340,
+   "cpu_pct": 0.08,
+   "activations": 3084,
+   "resp_mean_us": 47,
+   "resp_max_us": 117
+  }
+ },
+ "parse_errors": 0,
+ "duration_s": 309.518,
+ "run_id": "B-T11-R2",
+ "order": 55,
+ "seed": 513442505,
+ "factors": {
+  "model": "dscnn",
+  "mem": "psram",
+  "alloc": "static"
+ },
+ "cfg": {
+  "demo": "off",
+  "affinity": "split",
+  "prio": "equal",
+  "load": "off",
+  "frag": "0",
+  "seq": "full",
+  "model": "dscnn",
+  "mem": "psram",
+  "alloc": "static"
+ },
+ "attempts": 1,
+ "started": "2026-11-26T16:35:50+00:00"
+}
