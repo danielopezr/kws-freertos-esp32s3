@@ -102,6 +102,7 @@ struct run_t {
     int16_t *pool;
     uint32_t pool_next;
     std::atomic<uint32_t> dma_ovf;  // DMA buffers dropped because T1 did not read in time
+    uint32_t dma_ovf_run;           // dma_ovf when T1 played the last block (the DMA keeps running after)
     uint32_t blocks_rx, ring_ovf, run_alloc_fail;
     int64_t t_first, t1_gap_max;
     // T2
@@ -303,6 +304,7 @@ void t1_capture(void *arg)
         const uint32_t idx = r.blocks_rx + r.dma_ovf.load(std::memory_order_relaxed);  // stream position
         r.blocks_rx++;
         if (r.total_blocks && idx >= r.total_blocks) {
+            r.dma_ovf_run = idx - (r.blocks_rx - 1);  // drops during the run only
             gpio_set_level((gpio_num_t)PROBE_T1_GPIO, 0);
             break;
         }
@@ -746,7 +748,7 @@ void pipeline_run(const kws_cfg_t *cfg)
     print_task("T3", r.t3, r.w3, run_us);
     print_task("T4", r.t4, r.w4, run_us);
     print_task("LOAD", r.load, r.wl, run_us);
-    const uint32_t dma_ovf = r.dma_ovf.load();
+    const uint32_t dma_ovf = r.dma_ovf_run;  // not the drops after the run, while the tasks wind down
     printf("RESULT,inferences=%" PRIu32, r.n_inf);
     print_inference_stats(r.n_inf);
     printf(",blocks_total=%" PRIu32 ",blocks_lost=%" PRIu32 ",dma_ovf=%" PRIu32 ",ring_ovf=%" PRIu32,
