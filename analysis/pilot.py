@@ -10,8 +10,10 @@ treatments (two-sided two-sample t test) with the given power. The plan keeps at
 import argparse
 import math
 import sys
+import warnings
 
 from statsmodels.stats.power import TTestIndPower
+from statsmodels.tools.sm_exceptions import ConvergenceWarning
 
 import data
 
@@ -24,8 +26,11 @@ def replicates_needed(mean, sd, effect, power, alpha):
     delta = abs(effect * mean)
     if sd == 0 or delta == 0:
         return None
-    n = TTestIndPower().solve_power(effect_size=delta / sd, alpha=alpha, power=power, alternative="two-sided")
-    return max(2, math.ceil(n))
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", ConvergenceWarning)
+        n = TTestIndPower().solve_power(effect_size=delta / sd, alpha=alpha, power=power, alternative="two-sided")
+    # The solver does not converge when the effect is so large that fewer than 2 runs would do
+    return 2 if math.isnan(n) else max(2, math.ceil(n))
 
 
 def main():

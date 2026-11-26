@@ -15,6 +15,10 @@ class ReplicatesNeededTest(unittest.TestCase):
     def test_large_effect_needs_few(self):
         self.assertLessEqual(pilot.replicates_needed(100.0, 2.0, 0.10, 0.8, 0.05), 3)
 
+    def test_huge_effect_does_not_crash(self):
+        # effect = 100 sd: the power solver gives up (nan); 2 runs are enough
+        self.assertEqual(pilot.replicates_needed(17660.0, 17.0, 0.10, 0.8, 0.05), 2)
+
     def test_no_spread(self):
         self.assertIsNone(pilot.replicates_needed(100.0, 0.0, 0.10, 0.8, 0.05))
 
