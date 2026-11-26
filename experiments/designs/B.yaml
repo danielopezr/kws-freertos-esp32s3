@@ -1,9 +1,12 @@
 # Experiment B: memory. Where the buffers and tensor arena live and how they are allocated, per model.
+# affinity is split (T3 alone on core 1), not none: with none, ESP-IDF pins T2 and T3 to the core where
+# they first use the FPU (both end up on core 1), and the 1 s DS-CNN inference then starves T2 and
+# loses ~half of the audio whatever the memory, which would hide the memory effects this design measures.
 name: B
 replicates: 5
 seed: 1102
 fixed:
-  affinity: none
+  affinity: split
   prio: equal
   load: "off"
   frag: "0"
