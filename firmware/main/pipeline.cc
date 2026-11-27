@@ -119,6 +119,11 @@ struct run_t {
     volatile uint32_t led_on_ms;
     // T4
     size_t largest_min;
+    // live microphone: level of the last second, published by T1, printed by T4 (demo)
+    float lvl_rms_dbfs, lvl_peak_dbfs;
+    uint32_t lvl_clip, lvl_raw[2];
+    int32_t lvl_dc, lvl_min, lvl_max;
+    std::atomic<uint32_t> lvl_seq;
     // control
     TaskHandle_t t1, t2, t3, t4, load;
     volatile bool stop, stop_aux;
@@ -280,6 +285,45 @@ void copy_stream(int16_t *dst, uint32_t s0)
     }
 }
 
+// Live microphone: INMP441 24-bit sample, MSB aligned in its 32-bit slot -> 16 bits with the CFG
+// gain (gain=1: the top 16 bits), saturating. Once per second publishes the level the model hears.
+void live_block(run_t &r, const int32_t *dma, int16_t *dst)
+{
+    static int64_t sumsq, sum;
+    static int32_t peak, lo = INT16_MAX, hi = INT16_MIN;
+    static uint32_t clip, n;
+    const int32_t g = (int32_t)r.cfg.gain;
+    for (int i = 0; i < kBlock; i++) {
+        int32_t v = ((dma[i] >> 8) * g) >> 8;
+        if (v > INT16_MAX || v < INT16_MIN) {
+            v = v > 0 ? INT16_MAX : INT16_MIN;
+            clip++;
+        }
+        dst[i] = (int16_t)v;
+        sumsq += (int64_t)v * v;
+        sum += v;
+        peak = std::max(peak, v < 0 ? -v : v);
+        lo = std::min(lo, v);
+        hi = std::max(hi, v);
+    }
+    if (++n == KWS_SEQ_SAMPLE_RATE / kBlock) {  // 50 blocks = 1 s
+        r.lvl_rms_dbfs = (float)(20.0 * log10(sqrt((double)sumsq / (n * kBlock)) / 32768.0 + 1e-9));
+        r.lvl_peak_dbfs = (float)(20.0 * log10(peak / 32768.0 + 1e-9));
+        r.lvl_clip = clip;
+        r.lvl_dc = (int32_t)(sum / (int64_t)(n * kBlock));
+        r.lvl_min = lo;
+        r.lvl_max = hi;
+        r.lvl_raw[0] = (uint32_t)dma[0];
+        r.lvl_raw[1] = (uint32_t)dma[1];
+        r.lvl_seq.fetch_add(1, std::memory_order_release);
+        sumsq = sum = 0;
+        peak = 0;
+        lo = INT16_MAX;
+        hi = INT16_MIN;
+        clip = n = 0;
+    }
+}
+
 // T1: wait for each 20 ms DMA block, put the audio (or the sequence) in the queue to T2
 void t1_capture(void *arg)
 {
@@ -334,9 +378,7 @@ void t1_capture(void *arg)
                 if (r.total_blocks) {
                     copy_stream(dst, idx * kBlock);
                 } else {
-                    for (int i = 0; i < kBlock; i++) {
-                        dst[i] = (int16_t)(dma[i] >> 16);  // INMP441: 24-bit sample, MSB aligned in 32
-                    }
+                    live_block(r, dma, dst);
                 }
                 xQueueSend(r.q, &dst, 0);
             }
@@ -539,7 +581,8 @@ bool i2s_setup(run_t &r)
     i2s_std_config_t sc = {};
     sc.clk_cfg = clk;
     sc.slot_cfg = slot;
-    sc.slot_cfg.slot_mask = I2S_STD_SLOT_LEFT;  // INMP441 with L/R tied to GND
+    // INMP441 with L/R tied to GND talks in the left slot; slot=right (demo diagnostics) reads the other one
+    sc.slot_cfg.slot_mask = r.cfg.mic_right ? I2S_STD_SLOT_RIGHT : I2S_STD_SLOT_LEFT;
     sc.gpio_cfg.mclk = I2S_GPIO_UNUSED;
     sc.gpio_cfg.bclk = kI2sBclk;
     sc.gpio_cfg.ws = kI2sWs;
@@ -736,8 +779,18 @@ void pipeline_run(const kws_cfg_t *cfg)
     ESP_ERROR_CHECK(i2s_channel_enable(r.rx));
 
     if (cfg->demo) {
+        // live until reset; T3 prints the detections, this (lowest-priority) task the input level
+        uint32_t shown = 0;
         for (;;) {
-            vTaskDelay(portMAX_DELAY);  // live until reset; T3 prints the detections
+            vTaskDelay(pdMS_TO_TICKS(100));
+            const uint32_t seq = r.lvl_seq.load(std::memory_order_acquire);
+            if (seq != shown) {
+                shown = seq;
+                printf("LVL,rms_dbfs=%.1f,peak_dbfs=%.1f,clip=%" PRIu32 ",gain=%" PRIu32 ",dc=%" PRId32
+                       ",min=%" PRId32 ",max=%" PRId32 ",raw=%08" PRIx32 ":%08" PRIx32 "\n",
+                       r.lvl_rms_dbfs, r.lvl_peak_dbfs, r.lvl_clip, cfg->gain, r.lvl_dc, r.lvl_min, r.lvl_max,
+                       r.lvl_raw[0], r.lvl_raw[1]);
+            }
         }
     }
     xEventGroupWaitBits(r.done, BIT_T1 | BIT_T2 | BIT_T3, pdFALSE, pdTRUE, portMAX_DELAY);

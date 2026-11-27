@@ -46,6 +46,7 @@ bool kws_parse_cfg(const char *line, kws_cfg_t *cfg, char *err, size_t errlen)
     bool seed_seen = false;
     *cfg = kws_cfg_t{};
     cfg->threshold = KWS_DEFAULT_THRESHOLD;
+    cfg->gain = 1;
 
     char *save = nullptr;
     for (char *tok = strtok_r(buf, " \t\r\n", &save); tok; tok = strtok_r(nullptr, " \t\r\n", &save)) {
@@ -71,6 +72,22 @@ bool kws_parse_cfg(const char *line, kws_cfg_t *cfg, char *err, size_t errlen)
         }
         if (strcmp(k, "secs") == 0) {
             cfg->max_seconds = (uint32_t)strtoul(v, nullptr, 10);
+            continue;
+        }
+        if (strcmp(k, "slot") == 0) {
+            if (strcmp(v, "left") != 0 && strcmp(v, "right") != 0) {
+                snprintf(err, errlen, "slot=%.16s not left/right", v);
+                return false;
+            }
+            cfg->mic_right = strcmp(v, "right") == 0;
+            continue;
+        }
+        if (strcmp(k, "gain") == 0) {
+            cfg->gain = (uint32_t)strtoul(v, nullptr, 10);
+            if (cfg->gain < 1 || cfg->gain > KWS_MAX_GAIN) {
+                snprintf(err, errlen, "gain=%.16s out of [1, %u]", v, KWS_MAX_GAIN);
+                return false;
+            }
             continue;
         }
         int i = 0;

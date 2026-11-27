@@ -95,6 +95,21 @@ python tools/board.py COMx PROBE --seconds 60   # probe test for the logic analy
 
 `CFG` is the experiment protocol ([`experiments/protocol.py`](../experiments/protocol.py)); `runner.py` sends it. `demo=on` uses the live microphone, never ends and prints each detection as it happens.
 
+### Live microphone (`demo=on`)
+
+```bash
+python tools/board.py COMx "CFG model=cnn affinity=none prio=equal load=off mem=sram alloc=static frag=0 seq=none demo=on seed=1 gain=8" --seconds 120
+```
+
+The model hears absolute levels (no per-clip normalization), so the INMP441 needs digital gain: `gain=<1..128>` multiplies its 24-bit sample before taking 16 bits (`gain=1`: the top 16 bits). The training words sit at about −22 dBFS RMS; a quiet voice at 30 cm needed `gain=8`, a normal voice will need less (each halving is −6 dB). Once per second the board prints what the model hears:
+
+```
+LVL,rms_dbfs=-21.9,peak_dbfs=-8.3,clip=0,gain=8,dc=115,min=-10798,max=12664,raw=001c0c00:00189e00
+DET,648626,8,249  on 0.98
+```
+
+Tune `gain` so the second with a word is near −20 dBFS with `clip=0`. In silence, `rms_dbfs=-180` means the board reads zeros (microphone missing or unpowered); bit patterns such as `aaaa…` / `5555…` in `raw` with ~−4 dBFS mean the SD line floats (the microphone is not answering: power, clock or a loose jumper). A working INMP441 gives `raw` words with a zero low byte and sign-extended small values in silence. `slot=right` reads the other I2S slot (with L/R tied to GND it must stay silent).
+
 ## Probe test
 
 [`main/probes.c`](main/probes.c), plan step 5, started with the `PROBE` command: FreeRTOS tasks that only raise their pin, busy-wait a known time and sleep until the next period, so the logic analyzer must see exactly these signals:
