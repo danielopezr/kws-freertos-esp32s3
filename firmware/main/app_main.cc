@@ -4,10 +4,12 @@
 //   EVAL model=cnn [mem=psram]   offline accuracy check on the 150 clips of the test sequence
 //   ARENA            tensor arena each model really needs
 //   PROBE            GPIO probe test for the logic analyzer (plan step 5), until reset
+//   OLED             display wiring test: I2C scan, three test screens, time of a full-screen update
 //
 // runner.py resets the board before every run, so each run starts from a fresh boot.
 
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 
 #include "driver/uart.h"
@@ -20,6 +22,7 @@
 #include "freertos/task.h"
 #include "kws_mfcc.h"
 #include "kws_models.h"
+#include "oled.h"
 #include "pipeline.h"
 #include "probes.h"
 #include "run_config.h"
@@ -115,6 +118,12 @@ extern "C" void app_main(void)
             pipeline_eval(model, psram);
         } else if (strcmp(line, "ARENA") == 0) {
             pipeline_arena();
+        } else if (strncmp(line, "OLED", 4) == 0) {
+            // OLED sda=4 scl=5 runs the scan on the probe pins, to see the I2C traffic on the analyzer
+            const int sda = arg(line, "sda", val, sizeof val) ? atoi(val) : OLED_SDA_GPIO;
+            const int scl = arg(line, "scl", val, sizeof val) ? atoi(val) : OLED_SCL_GPIO;
+            oled_test(sda, scl);
+            printf("DONE\n");
         } else if (strcmp(line, "PROBE") == 0) {
             probes_start_test();
             printf("probe test running: T1 %d ms/%d us, T2 %d ms/%d us, T3 %d ms/%d us, T4 %d ms/%d us\n",

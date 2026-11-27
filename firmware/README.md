@@ -91,7 +91,10 @@ python tools/board.py COMx "CFG model=cnn affinity=none prio=equal load=off mem=
 python tools/board.py COMx "EVAL model=cnn"     # offline accuracy on the 150 clips (no real time)
 python tools/board.py COMx ARENA                # tensor arena each model needs
 python tools/board.py COMx PROBE --seconds 60   # probe test for the logic analyzer
+python tools/board.py COMx OLED                 # display wiring test (I2C on GPIO 8/9)
 ```
+
+`OLED` first reads SDA and SCL with the ESP32's pull-downs (1 = the line reaches the module's pull-ups, so the jumper and the module's VCC are fine), then scans the I2C bus (and again with SDA/SCL swapped), and on an SSD1306 at 0x3C/0x3D shows three test screens and prints the time of one full-screen update. `OLED sda=4 scl=5` runs the scan on the probe pins to see the I2C traffic on the analyzer. On 2026-11-26 the board side was verified this way (clean START / address / NACK / STOP), but the display did not answer at any address with both lines reaching it: likely a faulty module or a missing ground at the chip.
 
 `CFG` is the experiment protocol ([`experiments/protocol.py`](../experiments/protocol.py)); `runner.py` sends it. `demo=on` uses the live microphone, never ends and prints each detection as it happens.
 
