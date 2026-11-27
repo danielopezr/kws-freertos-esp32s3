@@ -1,0 +1,147 @@
+{
+ "capture": {
+  "samplerate": 250000.0,
+  "samples": 81250000,
+  "seconds": 325.0,
+  "run_seconds": 308.088712
+ },
+ "clock": {
+  "ppm": 93.28672783004421,
+  "offset_us": 27.14190981779603,
+  "drift_ms": 28.706107346764114,
+  "residual_us": {
+   "n": 103,
+   "mean": 6.29959946128084e-08,
+   "sd": 5.040283164785027,
+   "min": -15.249678483542084,
+   "max": 10.694602877947545
+  },
+  "pairs": 103,
+  "board_dets": 103,
+  "led_edges": 103
+ },
+ "latency": {
+  "board": {
+   "keywords": 100,
+   "hits": 95,
+   "misses": 4,
+   "substitutions": 1,
+   "false_alarms": 8,
+   "duplicates": 0,
+   "recall": 0.95,
+   "precision": 0.9223300970873787,
+   "f1": 0.9359605911330049,
+   "det_latency_ms": 57.86184210526316,
+   "det_latency_median_ms": 51.3125,
+   "det_latency_p95_ms": 263.93125
+  },
+  "analyzer": {
+   "keywords": 100,
+   "hits": 95,
+   "misses": 4,
+   "substitutions": 1,
+   "false_alarms": 8,
+   "duplicates": 0,
+   "recall": 0.95,
+   "precision": 0.9223300970873787,
+   "f1": 0.9359605911330049,
+   "det_latency_ms": 57.877631578947366,
+   "det_latency_median_ms": 51.3125,
+   "det_latency_p95_ms": 263.93125
+  },
+  "hits_compared": 95,
+  "diff_ms": {
+   "n": 95,
+   "mean": 0.015789473684210527,
+   "sd": 0.027157588737566168,
+   "min": 0.0,
+   "max": 0.0625
+  }
+ },
+ "external": {
+  "marks": 150,
+  "utterances": 150,
+  "ext_ms": {
+   "n": 95,
+   "mean": 57.929489473684214,
+   "sd": 161.9221559420481,
+   "min": -489.09299999999996,
+   "max": 762.2745
+  },
+  "ext_minus_board_ms": {
+   "n": 95,
+   "mean": 0.06764736842105314,
+   "sd": 0.031761270165854234,
+   "min": -0.03049999999996089,
+   "max": 0.14949999999998909
+  }
+ },
+ "tasks": {
+  "T1": {
+   "pulses": 15404,
+   "activations": 15404,
+   "width_us": {
+    "n": 15404,
+    "mean": 56.439885743962606,
+    "sd": 20.730309623693287,
+    "min": 4.0,
+    "max": 100.0
+   },
+   "board_resp_mean_us": 57,
+   "board_resp_max_us": 105
+  },
+  "T2": {
+   "pulses": 15404,
+   "activations": 15404,
+   "width_us": {
+    "n": 15404,
+    "mean": 4458.182290314204,
+    "sd": 7323.105141824158,
+    "min": 4.0,
+    "max": 19280.0
+   },
+   "board_resp_mean_us": 4459,
+   "board_resp_max_us": 19279
+  },
+  "T3": {
+   "pulses": 3071,
+   "activations": 3071,
+   "width_us": {
+    "n": 3071,
+    "mean": 18482.728752849234,
+    "sd": 8.319198823989888,
+    "min": 18464.0,
+    "max": 18628.0
+   },
+   "board_resp_mean_us": 18484,
+   "board_resp_max_us": 18625
+  },
+  "T4": {
+   "pulses": 3081,
+   "activations": 3082,
+   "width_us": {
+    "n": 3081,
+    "mean": 48.58033106134372,
+    "sd": 2.166875234935588,
+    "min": 20.0,
+    "max": 52.0
+   },
+   "board_resp_mean_us": 50,
+   "board_resp_max_us": 84
+  }
+ },
+ "t1_period_ms": {
+  "n": 15403,
+  "mean": 20.001864052457318,
+  "sd": 0.030461744767761097,
+  "min": 19.952,
+  "max": 20.052
+ },
+ "board": {
+  "t1_gap_max_us": 20048,
+  "blocks_total": 15404,
+  "blocks_lost": 1,
+  "inf_mean_us": 17678,
+  "inferences": 3071
+ }
+}

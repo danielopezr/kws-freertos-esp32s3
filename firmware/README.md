@@ -151,3 +151,15 @@ python tools/check_probes.py long.sr
 ```
 
 If the PC sustains 5 minutes at 250 kHz without dropping samples, the experiments measure latencies with the analyzer, as the proposal says. If not, latencies are measured on the board with `esp_timer` and the analyzer only calibrates them (plan step 5.4). With sigrok-cli nightly the PC sustained the 5 minutes (75 M samples, 2026-11-25).
+
+### 6. Calibrate the on-board measurements
+
+Start a capture that holds a whole run, then the run (pilot configuration), and compare:
+
+```bash
+sigrok-cli -d fx2lafw --config samplerate=250k --time 325000 -C D0,D1,D2,D3,D4,D5 -o calib.sr   # start first
+python tools/board.py COMx "CFG model=cnn affinity=none prio=equal load=off mem=sram alloc=static frag=0 seq=full demo=off seed=1" --log calib.log
+python tools/calibrate.py calib.sr calib.log --seed 1 --json calibration.json
+```
+
+[`tools/calibrate.py`](tools/calibrate.py) pairs every detection of the board with a rising edge of the LED, fits the rate between the two clocks, recomputes the detection latency from the pins, measures it a second way without the board's arithmetic (end-of-word marker → LED) and compares the T1–T4 pulse widths with the TASK lines. Result on 2026-11-26 ([`experiments/results/calibration`](../experiments/results/calibration)): 103/103 detections paired, the clocks differ by 93 ppm (6 µs on a 60 ms latency), the board's latency matches the pins within 0.06 ms per word (0.15 ms by the marker), task widths within 1–2 µs at 4 µs resolution.
