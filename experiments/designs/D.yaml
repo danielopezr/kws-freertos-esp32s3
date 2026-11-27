@@ -14,5 +14,9 @@ factors:
 presets:
   strategy:
     base: {affinity: none, prio: equal, load: "off", mem: sram, alloc: static}
-    best: null
-    alternative: null
+    # A: split gave the lowest detection latency and is the only placement where T3's priority does not matter;
+    # B: SRAM + static gave the lowest latency (CNN 43 ms) and the fastest inference. Differs from base only in affinity.
+    best: {affinity: split, prio: equal, load: "off", mem: sram, alloc: static}
+    # Rate-monotonic: T1 (20 ms) above T3 (100 ms), preallocated buffers (plan step 13). Differs from base only in
+    # priority; in A it raised the CNN latency by ~7 ms with affinity none.
+    alternative: {affinity: none, prio: lower, load: "off", mem: sram, alloc: static}
