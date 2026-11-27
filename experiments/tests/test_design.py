@@ -1,3 +1,4 @@
+import re
 import sys
 import tempfile
 import unittest
@@ -45,22 +46,24 @@ class TestDesigns(unittest.TestCase):
         self.assertEqual(len({r["seed"] for r in p}), len(p))
 
     def test_d_refuses_undefined_strategies(self):
-        with self.assertRaisesRegex(D.DesignError, "best"):
-            D.load(DESIGNS / "D.yaml")
-
-    def test_presets_expand(self):
-        text = (DESIGNS / "D.yaml").read_text().replace(
-            "best: null", 'best: {affinity: split, prio: lower, load: "off", mem: sram, alloc: static}').replace(
-            "alternative: null", 'alternative: {affinity: none, prio: lower, load: "off", mem: psram, alloc: static}')
+        text = re.sub(r"(?m)^(\s+)(best|alternative): \{.*\}$", r"\1\2: null", (DESIGNS / "D.yaml").read_text())
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "D.yaml"
             path.write_text(text)
-            d = D.load(path)
-        trts = D.treatments(d)
+            with self.assertRaisesRegex(D.DesignError, "best"):
+                D.load(path)
+
+    def test_presets_expand(self):
+        trts = D.treatments(D.load(DESIGNS / "D.yaml"))
         self.assertEqual(len(trts), 9)
-        best = [cfg for _, f, cfg in trts if f["strategy"] == "best"]
-        self.assertTrue(all(c["affinity"] == "split" and c["prio"] == "lower" for c in best))
-        self.assertEqual({c["model"] for c in best}, {"dnn", "cnn", "dscnn"})
+        by = {s: [cfg for _, f, cfg in trts if f["strategy"] == s] for s in ("base", "best", "alternative")}
+        self.assertTrue(all(c["affinity"] == "split" and c["prio"] == "equal" for c in by["best"]))
+        self.assertTrue(all(c["affinity"] == "none" and c["prio"] == "lower" for c in by["alternative"]))
+        self.assertEqual({c["model"] for c in by["best"]}, {"dnn", "cnn", "dscnn"})
+        # best and alternative each differ from base in one factor only (affinity, priority)
+        for s, factor in (("best", "affinity"), ("alternative", "prio")):
+            for b, c in zip(sorted(by["base"], key=lambda c: c["model"]), sorted(by[s], key=lambda c: c["model"])):
+                self.assertEqual({k for k in c if c[k] != b[k]}, {factor})
 
     def test_demo_is_refused_in_experiments(self):
         with tempfile.TemporaryDirectory() as tmp:
