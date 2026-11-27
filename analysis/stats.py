@@ -48,6 +48,39 @@ def replicates(df, factors):
     return int(df.groupby(factors, observed=True).size().min())
 
 
+def complete_design(df, factors, columns):
+    """(data, factors, dropped): the largest part of the design with no empty treatment.
+
+    A treatment with no usable value in `columns` (e.g. DS-CNN in SRAM: the arena does not fit, so the
+    run has no latency) leaves an empty cell and the factorial model is not estimable. Drops, one at a
+    time, the factor level that empties the most cells (ties: the one with fewer runs), then any factor
+    left with a single level. dropped lists (factor, level) in the order they were removed.
+    """
+    data = df.dropna(subset=list(columns)).copy()
+    factors, dropped = list(factors), []
+    for f in factors:
+        if not isinstance(data[f].dtype, pd.CategoricalDtype):
+            data[f] = pd.Categorical(df[f].loc[data.index], categories=list(dict.fromkeys(df[f])))
+    while factors:
+        counts = data.groupby(factors, observed=False).size()
+        empty = counts[counts == 0]
+        if empty.empty:
+            break
+        best = None
+        for i, f in enumerate(factors):
+            idx = empty.index.get_level_values(i) if len(factors) > 1 else empty.index
+            for level, n_empty in pd.Series(idx).value_counts().items():
+                key = (-n_empty, int((data[f] == level).sum()))
+                if best is None or key < best[0]:
+                    best = (key, f, level)
+        _, f, level = best
+        dropped.append((f, level))
+        data = data[data[f] != level].copy()
+        data[f] = data[f].cat.remove_unused_categories() if hasattr(data[f], "cat") else data[f]
+        factors = [g for g in factors if data[g].nunique() > 1]
+    return data, factors, dropped
+
+
 def anova(df, factors, response, interactions=None):
     """(ANOVA table with F, p and partial eta squared, fitted model).
 

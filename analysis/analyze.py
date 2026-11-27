@@ -51,6 +51,10 @@ def md_table(df, floatfmt=".4g"):
     return "\n".join([head, sep, *rows])
 
 
+def without(dropped):
+    return ", ".join(f"`{f} = {level}`" for f, level in dropped)
+
+
 def p_text(p):
     return "n/a (needs 2+ runs per treatment)" if pd.isna(p) else f"{p:.3g}"
 
@@ -70,6 +74,15 @@ def analyse_response(df, factors, response, out, name):
     lines += ["### Descriptive statistics per treatment", "", md_table(desc), ""]
     if df[response].dropna().nunique() < 2:
         return lines + ["No variation in this response: ANOVA not applicable.", ""]
+
+    full_df, full_factors = df, factors
+    df, factors, dropped = stats.complete_design(df, factors, [response])
+    if dropped:
+        lines += [f"> ANOVA on the complete part of the design, without {without(dropped)}: those treatments "
+                  "have no value for this response (allocation failure or no detection), so the full factorial "
+                  "model is not estimable. They stay in the table above.", ""]
+    if len(factors) == 0 or df[response].nunique() < 2:
+        return lines + ["Not enough complete treatments for an ANOVA.", ""]
 
     table, model = stats.anova(df, factors, response)
     check = stats.assumptions(model, df, factors, response)
@@ -121,12 +134,12 @@ def analyse_response(df, factors, response, out, name):
         lines += ["No significant term at alpha = 0.05.", ""]
 
     box = f"{response}_box.png"
-    plots.boxplot(df, factors, response, out / box)
+    plots.boxplot(full_df, full_factors, response, out / box)
     lines += [f"![box plot]({box})", ""]
-    axes = interaction_axes(name, factors)
+    axes = interaction_axes(name, full_factors)
     if axes:
         fig = f"{response}_interaction.png"
-        plots.interaction(df, axes[0], axes[1], response, out / fig, panel=axes[2])
+        plots.interaction(full_df, axes[0], axes[1], response, out / fig, panel=axes[2])
         lines += [f"![interaction {axes[0]} x {axes[1]}]({fig})", ""]
     return lines
 
@@ -158,12 +171,14 @@ def analyse(results_dir, out=None, responses=None):
     lines += ["## Proportions (quasi-binomial logistic regression)", ""]
     for title, (k, n) in PROPORTIONS.items():
         if {k, n} <= set(df.columns):
-            wald = stats.logistic(df, factors, k, n)
+            part, part_factors, dropped = stats.complete_design(df, factors, [k, n])
+            wald = stats.logistic(part, part_factors, k, n) if part_factors else None
             if wald is None:
                 lines += [f"- {title}: no variation or not estimable.", ""]
             else:
                 wald.to_csv(out / f"logistic_{k}.csv")
-                lines += [f"### {title} (`{k}` / `{n}`)", "", md_table(wald.reset_index(names="term")), ""]
+                note = [f"Without {without(dropped)} (no runs to count).", ""] if dropped else []
+                lines += [f"### {title} (`{k}` / `{n}`)", "", *note, md_table(wald.reset_index(names="term")), ""]
     (out / "report.md").write_text("\n".join(lines), encoding="utf-8")
     return out, df_all, factors
 

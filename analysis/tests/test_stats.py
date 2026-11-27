@@ -89,5 +89,40 @@ class TestStats(unittest.TestCase):
         self.assertIsNone(S.logistic(flat, ["A", "B"], "k", "n"))
 
 
+class TestCompleteDesign(unittest.TestCase):
+    def design_b(self):
+        """model x mem x alloc as experiment B: dscnn has no value in SRAM (allocation failure)."""
+        rows = []
+        for model in ("dnn", "cnn", "dscnn"):
+            for mem in ("sram", "psram"):
+                for alloc in ("static", "dynamic"):
+                    for r in range(3):
+                        y = np.nan if (model, mem) == ("dscnn", "sram") else 10.0 + r
+                        rows.append({"model": model, "mem": mem, "alloc": alloc, "y": y})
+        df = pd.DataFrame(rows)
+        for f in ("model", "mem", "alloc"):
+            df[f] = pd.Categorical(df[f], categories=list(dict.fromkeys(df[f])))
+        return df
+
+    def test_drops_the_level_that_empties_cells(self):
+        data, factors, dropped = S.complete_design(self.design_b(), ["model", "mem", "alloc"], ["y"])
+        self.assertEqual(dropped, [("model", "dscnn")])
+        self.assertEqual(factors, ["model", "mem", "alloc"])
+        self.assertEqual(len(data), 24)
+        self.assertNotIn("dscnn", list(data["model"].cat.categories))
+        S.anova(data, factors, "y")  # estimable now
+
+    def test_complete_design_is_untouched(self):
+        df = factorial()
+        data, factors, dropped = S.complete_design(df, ["A", "B"], ["y"])
+        self.assertEqual((len(data), factors, dropped), (len(df), ["A", "B"], []))
+
+    def test_factor_left_with_one_level_is_removed(self):
+        df = factorial(reps=2)
+        df.loc[df.A == "a1", "y"] = np.nan
+        data, factors, dropped = S.complete_design(df, ["A", "B"], ["y"])
+        self.assertEqual(dropped, [("A", "a1")])
+        self.assertEqual(factors, ["B"])
+
 if __name__ == "__main__":
     unittest.main()
