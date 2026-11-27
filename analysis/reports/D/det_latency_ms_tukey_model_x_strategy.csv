@@ -1,0 +1,16 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+cnn / alternative,cnn / base,8.8555,0.5183,-6.8497,24.5607,False
+cnn / alternative,cnn / best,-0.7754,1.0,-16.4806,14.9298,False
+cnn / alternative,dnn / alternative,183.1886,0.0,167.4834,198.8938,True
+cnn / alternative,dnn / base,167.697,0.0,151.9918,183.4022,True
+cnn / alternative,dnn / best,181.599,0.0,165.8937,197.3042,True
+cnn / base,cnn / best,-9.6309,0.4284,-25.3361,6.0743,False
+cnn / base,dnn / alternative,174.3331,0.0,158.6279,190.0383,True
+cnn / base,dnn / base,158.8415,0.0,143.1363,174.5467,True
+cnn / base,dnn / best,172.7435,0.0,157.0382,188.4487,True
+cnn / best,dnn / alternative,183.964,0.0,168.2588,199.6692,True
+cnn / best,dnn / base,168.4724,0.0,152.7672,184.1776,True
+cnn / best,dnn / best,182.3743,0.0,166.6691,198.0796,True
+dnn / alternative,dnn / base,-15.4916,0.0547,-31.1968,0.2136,False
+dnn / alternative,dnn / best,-1.5897,0.9995,-17.2949,14.1156,False
+dnn / base,dnn / best,13.9019,0.1042,-1.8033,29.6072,False

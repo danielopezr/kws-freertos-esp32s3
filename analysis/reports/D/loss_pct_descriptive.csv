@@ -1,0 +1,10 @@
+model,strategy,n,mean,sd,ci95_low,ci95_high,p95,max
+dnn,base,5,0.0,0.0,0.0,0.0,0.0,0.0
+dnn,best,5,0.0,0.0,0.0,0.0,0.0,0.0
+dnn,alternative,5,0.0,0.0,0.0,0.0,0.0,0.0
+cnn,base,5,0.0,0.0,0.0,0.0,0.0,0.0
+cnn,best,5,0.0,0.0,0.0,0.0,0.0,0.0
+cnn,alternative,5,0.0,0.0,0.0,0.0,0.0,0.0
+dscnn,base,0,,,,,,
+dscnn,best,0,,,,,,
+dscnn,alternative,0,,,,,,
