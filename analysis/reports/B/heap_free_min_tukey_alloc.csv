@@ -1,0 +1,2 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+dynamic,static,16272.6667,0.0481,142.7487,32402.5846,True

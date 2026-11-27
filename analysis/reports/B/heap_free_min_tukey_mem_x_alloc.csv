@@ -1,0 +1,7 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+psram / dynamic,psram / static,21984.0,0.1429,-4782.2201,48750.2201,False
+psram / dynamic,sram / dynamic,-23824.0,0.0976,-50590.2201,2942.2201,False
+psram / dynamic,sram / static,-13262.6667,0.5593,-40028.8868,13503.5535,False
+psram / static,sram / dynamic,-45808.0,0.0002,-72574.2201,-19041.7799,True
+psram / static,sram / static,-35246.6667,0.0052,-62012.8868,-8480.4465,True
+sram / dynamic,sram / static,10561.3333,0.724,-16204.8868,37327.5535,False

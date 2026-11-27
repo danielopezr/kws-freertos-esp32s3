@@ -1,0 +1,7 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+cnn / dynamic,cnn / static,-8.3,1.0,-3650.4069,3633.8069,False
+cnn / dynamic,dnn / dynamic,1556.6,0.6609,-2085.5069,5198.7069,False
+cnn / dynamic,dnn / static,1564.4,0.6574,-2077.7069,5206.5069,False
+cnn / static,dnn / dynamic,1564.9,0.6571,-2077.2069,5207.0069,False
+cnn / static,dnn / static,1572.7,0.6536,-2069.4069,5214.8069,False
+dnn / dynamic,dnn / static,7.8,1.0,-3634.3069,3649.9069,False

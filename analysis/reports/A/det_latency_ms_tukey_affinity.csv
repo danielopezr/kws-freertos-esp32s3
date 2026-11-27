@@ -1,0 +1,4 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+none,same,-1.7445,0.8018,-8.3041,4.8151,False
+none,split,-6.9207,0.0362,-13.4803,-0.361,True
+same,split,-5.1762,0.1501,-11.7358,1.3834,False

@@ -1,0 +1,2 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+cnn,dnn,166.7962,0.0,159.1682,174.4242,True

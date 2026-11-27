@@ -1,0 +1,7 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+cnn / psram,cnn / sram,-11.0492,0.1478,-24.6904,2.5919,False
+cnn / psram,dnn / psram,158.3808,0.0,144.7396,172.0219,True
+cnn / psram,dnn / sram,164.1624,0.0,150.5213,177.8036,True
+cnn / sram,dnn / psram,169.43,0.0,155.7888,183.0712,True
+cnn / sram,dnn / sram,175.2116,0.0,161.5705,188.8528,True
+dnn / psram,dnn / sram,5.7816,0.6667,-7.8595,19.4228,False

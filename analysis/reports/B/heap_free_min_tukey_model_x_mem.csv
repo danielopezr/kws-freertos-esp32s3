@@ -1,0 +1,16 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+cnn / psram,cnn / sram,-75410.0,0.0,-87970.4317,-62849.5683,True
+cnn / psram,dnn / psram,0.0,1.0,-12560.4317,12560.4317,False
+cnn / psram,dnn / sram,-29976.0,0.0,-42536.4317,-17415.5683,True
+cnn / psram,dscnn / psram,0.0,1.0,-12560.4317,12560.4317,False
+cnn / psram,dscnn / sram,16780.0,0.003,4219.5683,29340.4317,True
+cnn / sram,dnn / psram,75410.0,0.0,62849.5683,87970.4317,True
+cnn / sram,dnn / sram,45434.0,0.0,32873.5683,57994.4317,True
+cnn / sram,dscnn / psram,75410.0,0.0,62849.5683,87970.4317,True
+cnn / sram,dscnn / sram,92190.0,0.0,79629.5683,104750.4317,True
+dnn / psram,dnn / sram,-29976.0,0.0,-42536.4317,-17415.5683,True
+dnn / psram,dscnn / psram,0.0,1.0,-12560.4317,12560.4317,False
+dnn / psram,dscnn / sram,16780.0,0.003,4219.5683,29340.4317,True
+dnn / sram,dscnn / psram,29976.0,0.0,17415.5683,42536.4317,True
+dnn / sram,dscnn / sram,46756.0,0.0,34195.5683,59316.4317,True
+dscnn / psram,dscnn / sram,16780.0,0.003,4219.5683,29340.4317,True

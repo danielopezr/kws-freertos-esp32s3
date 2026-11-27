@@ -1,0 +1,4 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+equal,higher,2.5925,0.599,-3.7943,8.9793,False
+equal,lower,9.01,0.0033,2.6232,15.3968,True
+higher,lower,6.4175,0.0486,0.0307,12.8043,True

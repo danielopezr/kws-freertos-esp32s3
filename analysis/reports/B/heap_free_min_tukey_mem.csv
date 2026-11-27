@@ -1,0 +1,2 @@
+group1,group2,mean_diff,p_adj,lower,upper,significant
+psram,sram,-29535.3333,0.0002,-44307.0364,-14763.6303,True
