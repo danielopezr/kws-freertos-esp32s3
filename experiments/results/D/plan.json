@@ -1,0 +1,998 @@
+{
+ "design": "D",
+ "fingerprint": "16e62c042cf24a81",
+ "seed": 1104,
+ "replicates": 5,
+ "runs": [
+  {
+   "order": 1,
+   "run_id": "D-T02-R2",
+   "treatment": 2,
+   "replicate": 2,
+   "seed": 2078982768,
+   "factors": {
+    "model": "dnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 2,
+   "run_id": "D-T08-R2",
+   "treatment": 8,
+   "replicate": 2,
+   "seed": 1875558825,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 3,
+   "run_id": "D-T08-R3",
+   "treatment": 8,
+   "replicate": 3,
+   "seed": 249532265,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 4,
+   "run_id": "D-T08-R4",
+   "treatment": 8,
+   "replicate": 4,
+   "seed": 921628058,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 5,
+   "run_id": "D-T03-R1",
+   "treatment": 3,
+   "replicate": 1,
+   "seed": 1472324854,
+   "factors": {
+    "model": "dnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 6,
+   "run_id": "D-T07-R2",
+   "treatment": 7,
+   "replicate": 2,
+   "seed": 959065151,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 7,
+   "run_id": "D-T03-R5",
+   "treatment": 3,
+   "replicate": 5,
+   "seed": 901969839,
+   "factors": {
+    "model": "dnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 8,
+   "run_id": "D-T05-R4",
+   "treatment": 5,
+   "replicate": 4,
+   "seed": 1848366699,
+   "factors": {
+    "model": "cnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 9,
+   "run_id": "D-T08-R1",
+   "treatment": 8,
+   "replicate": 1,
+   "seed": 1627431868,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 10,
+   "run_id": "D-T05-R5",
+   "treatment": 5,
+   "replicate": 5,
+   "seed": 58990875,
+   "factors": {
+    "model": "cnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 11,
+   "run_id": "D-T02-R3",
+   "treatment": 2,
+   "replicate": 3,
+   "seed": 664661049,
+   "factors": {
+    "model": "dnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 12,
+   "run_id": "D-T07-R5",
+   "treatment": 7,
+   "replicate": 5,
+   "seed": 1153669248,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 13,
+   "run_id": "D-T05-R1",
+   "treatment": 5,
+   "replicate": 1,
+   "seed": 2032172662,
+   "factors": {
+    "model": "cnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 14,
+   "run_id": "D-T04-R1",
+   "treatment": 4,
+   "replicate": 1,
+   "seed": 1857301821,
+   "factors": {
+    "model": "cnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 15,
+   "run_id": "D-T07-R1",
+   "treatment": 7,
+   "replicate": 1,
+   "seed": 984972763,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 16,
+   "run_id": "D-T09-R5",
+   "treatment": 9,
+   "replicate": 5,
+   "seed": 1191230295,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 17,
+   "run_id": "D-T06-R5",
+   "treatment": 6,
+   "replicate": 5,
+   "seed": 247034951,
+   "factors": {
+    "model": "cnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 18,
+   "run_id": "D-T05-R3",
+   "treatment": 5,
+   "replicate": 3,
+   "seed": 502168786,
+   "factors": {
+    "model": "cnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 19,
+   "run_id": "D-T01-R2",
+   "treatment": 1,
+   "replicate": 2,
+   "seed": 265339419,
+   "factors": {
+    "model": "dnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 20,
+   "run_id": "D-T06-R1",
+   "treatment": 6,
+   "replicate": 1,
+   "seed": 439618903,
+   "factors": {
+    "model": "cnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 21,
+   "run_id": "D-T04-R4",
+   "treatment": 4,
+   "replicate": 4,
+   "seed": 1591654478,
+   "factors": {
+    "model": "cnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 22,
+   "run_id": "D-T09-R2",
+   "treatment": 9,
+   "replicate": 2,
+   "seed": 159829997,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 23,
+   "run_id": "D-T06-R4",
+   "treatment": 6,
+   "replicate": 4,
+   "seed": 299016933,
+   "factors": {
+    "model": "cnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 24,
+   "run_id": "D-T04-R3",
+   "treatment": 4,
+   "replicate": 3,
+   "seed": 569637304,
+   "factors": {
+    "model": "cnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 25,
+   "run_id": "D-T06-R2",
+   "treatment": 6,
+   "replicate": 2,
+   "seed": 600112058,
+   "factors": {
+    "model": "cnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 26,
+   "run_id": "D-T05-R2",
+   "treatment": 5,
+   "replicate": 2,
+   "seed": 553938954,
+   "factors": {
+    "model": "cnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 27,
+   "run_id": "D-T09-R4",
+   "treatment": 9,
+   "replicate": 4,
+   "seed": 437785838,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 28,
+   "run_id": "D-T01-R4",
+   "treatment": 1,
+   "replicate": 4,
+   "seed": 544771239,
+   "factors": {
+    "model": "dnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 29,
+   "run_id": "D-T01-R5",
+   "treatment": 1,
+   "replicate": 5,
+   "seed": 42980768,
+   "factors": {
+    "model": "dnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 30,
+   "run_id": "D-T02-R4",
+   "treatment": 2,
+   "replicate": 4,
+   "seed": 387951178,
+   "factors": {
+    "model": "dnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 31,
+   "run_id": "D-T01-R3",
+   "treatment": 1,
+   "replicate": 3,
+   "seed": 1163843085,
+   "factors": {
+    "model": "dnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 32,
+   "run_id": "D-T07-R4",
+   "treatment": 7,
+   "replicate": 4,
+   "seed": 1194511521,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 33,
+   "run_id": "D-T01-R1",
+   "treatment": 1,
+   "replicate": 1,
+   "seed": 958606234,
+   "factors": {
+    "model": "dnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 34,
+   "run_id": "D-T07-R3",
+   "treatment": 7,
+   "replicate": 3,
+   "seed": 1668044532,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 35,
+   "run_id": "D-T03-R2",
+   "treatment": 3,
+   "replicate": 2,
+   "seed": 112803821,
+   "factors": {
+    "model": "dnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 36,
+   "run_id": "D-T09-R1",
+   "treatment": 9,
+   "replicate": 1,
+   "seed": 1661539456,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 37,
+   "run_id": "D-T08-R5",
+   "treatment": 8,
+   "replicate": 5,
+   "seed": 208585754,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 38,
+   "run_id": "D-T03-R3",
+   "treatment": 3,
+   "replicate": 3,
+   "seed": 544146840,
+   "factors": {
+    "model": "dnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 39,
+   "run_id": "D-T03-R4",
+   "treatment": 3,
+   "replicate": 4,
+   "seed": 272119811,
+   "factors": {
+    "model": "dnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 40,
+   "run_id": "D-T02-R5",
+   "treatment": 2,
+   "replicate": 5,
+   "seed": 652148423,
+   "factors": {
+    "model": "dnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 41,
+   "run_id": "D-T04-R5",
+   "treatment": 4,
+   "replicate": 5,
+   "seed": 903069027,
+   "factors": {
+    "model": "cnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 42,
+   "run_id": "D-T02-R1",
+   "treatment": 2,
+   "replicate": 1,
+   "seed": 1736112624,
+   "factors": {
+    "model": "dnn",
+    "strategy": "best"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dnn",
+    "affinity": "split",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 43,
+   "run_id": "D-T04-R2",
+   "treatment": 4,
+   "replicate": 2,
+   "seed": 597959079,
+   "factors": {
+    "model": "cnn",
+    "strategy": "base"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "equal",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 44,
+   "run_id": "D-T06-R3",
+   "treatment": 6,
+   "replicate": 3,
+   "seed": 154814689,
+   "factors": {
+    "model": "cnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "cnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  },
+  {
+   "order": 45,
+   "run_id": "D-T09-R3",
+   "treatment": 9,
+   "replicate": 3,
+   "seed": 343999046,
+   "factors": {
+    "model": "dscnn",
+    "strategy": "alternative"
+   },
+   "cfg": {
+    "demo": "off",
+    "frag": "0",
+    "seq": "full",
+    "model": "dscnn",
+    "affinity": "none",
+    "prio": "lower",
+    "load": "off",
+    "mem": "sram",
+    "alloc": "static"
+   }
+  }
+ ]
+}

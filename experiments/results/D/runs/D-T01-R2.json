@@ -1,0 +1,557 @@
+{
+ "status": "ok",
+ "result": {
+  "inferences": 3066,
+  "inf_mean_us": 21897,
+  "inf_sd_us": 9,
+  "inf_p95_us": 21906,
+  "inf_max_us": 22106,
+  "blocks_total": 15376,
+  "blocks_lost": 0,
+  "dma_ovf": 0,
+  "ring_ovf": 0,
+  "heap_free_min": 282232,
+  "heap_largest_block": 258048,
+  "psram_free_min": 8378048,
+  "arena_bytes": 8716,
+  "alloc_fail": 0,
+  "load_us": 3899,
+  "largest_block_min": 241664,
+  "run_alloc_fail": 0,
+  "inf_skipped": 0,
+  "inf_fail": 0,
+  "detections": 94,
+  "threshold": 0.8,
+  "t1_gap_max_us": 20055,
+  "run_ms": 307543,
+  "seq_inserted": 120153
+ },
+ "detections": [
+  {
+   "sample": 31970,
+   "label_id": 5,
+   "score": 234
+  },
+  {
+   "sample": 66442,
+   "label_id": 4,
+   "score": 241
+  },
+  {
+   "sample": 155979,
+   "label_id": 8,
+   "score": 251
+  },
+  {
+   "sample": 194961,
+   "label_id": 3,
+   "score": 222
+  },
+  {
+   "sample": 222436,
+   "label_id": 7,
+   "score": 225
+  },
+  {
+   "sample": 289897,
+   "label_id": 6,
+   "score": 219
+  },
+  {
+   "sample": 322514,
+   "label_id": 10,
+   "score": 255
+  },
+  {
+   "sample": 382126,
+   "label_id": 9,
+   "score": 248
+  },
+  {
+   "sample": 415016,
+   "label_id": 10,
+   "score": 217
+  },
+  {
+   "sample": 447110,
+   "label_id": 7,
+   "score": 231
+  },
+  {
+   "sample": 508722,
+   "label_id": 2,
+   "score": 216
+  },
+  {
+   "sample": 550173,
+   "label_id": 3,
+   "score": 206
+  },
+  {
+   "sample": 603431,
+   "label_id": 6,
+   "score": 217
+  },
+  {
+   "sample": 641214,
+   "label_id": 4,
+   "score": 218
+  },
+  {
+   "sample": 705574,
+   "label_id": 7,
+   "score": 214
+  },
+  {
+   "sample": 737064,
+   "label_id": 10,
+   "score": 242
+  },
+  {
+   "sample": 765950,
+   "label_id": 4,
+   "score": 239
+  },
+  {
+   "sample": 832050,
+   "label_id": 8,
+   "score": 207
+  },
+  {
+   "sample": 895583,
+   "label_id": 3,
+   "score": 226
+  },
+  {
+   "sample": 926848,
+   "label_id": 6,
+   "score": 235
+  },
+  {
+   "sample": 961065,
+   "label_id": 9,
+   "score": 219
+  },
+  {
+   "sample": 1018679,
+   "label_id": 5,
+   "score": 207
+  },
+  {
+   "sample": 1050132,
+   "label_id": 10,
+   "score": 219
+  },
+  {
+   "sample": 1120382,
+   "label_id": 2,
+   "score": 219
+  },
+  {
+   "sample": 1179096,
+   "label_id": 11,
+   "score": 208
+  },
+  {
+   "sample": 1221167,
+   "label_id": 6,
+   "score": 248
+  },
+  {
+   "sample": 1255873,
+   "label_id": 7,
+   "score": 213
+  },
+  {
+   "sample": 1272849,
+   "label_id": 2,
+   "score": 210
+  },
+  {
+   "sample": 1338773,
+   "label_id": 10,
+   "score": 255
+  },
+  {
+   "sample": 1407753,
+   "label_id": 10,
+   "score": 248
+  },
+  {
+   "sample": 1439811,
+   "label_id": 2,
+   "score": 206
+  },
+  {
+   "sample": 1475771,
+   "label_id": 6,
+   "score": 226
+  },
+  {
+   "sample": 1504325,
+   "label_id": 9,
+   "score": 244
+  },
+  {
+   "sample": 1565612,
+   "label_id": 6,
+   "score": 234
+  },
+  {
+   "sample": 1600796,
+   "label_id": 9,
+   "score": 211
+  },
+  {
+   "sample": 1626432,
+   "label_id": 8,
+   "score": 222
+  },
+  {
+   "sample": 1691373,
+   "label_id": 3,
+   "score": 228
+  },
+  {
+   "sample": 1823305,
+   "label_id": 9,
+   "score": 230
+  },
+  {
+   "sample": 1854304,
+   "label_id": 8,
+   "score": 211
+  },
+  {
+   "sample": 1896131,
+   "label_id": 7,
+   "score": 209
+  },
+  {
+   "sample": 1917430,
+   "label_id": 11,
+   "score": 219
+  },
+  {
+   "sample": 2081032,
+   "label_id": 2,
+   "score": 246
+  },
+  {
+   "sample": 2109572,
+   "label_id": 10,
+   "score": 208
+  },
+  {
+   "sample": 2145081,
+   "label_id": 4,
+   "score": 206
+  },
+  {
+   "sample": 2174345,
+   "label_id": 5,
+   "score": 241
+  },
+  {
+   "sample": 2206339,
+   "label_id": 6,
+   "score": 240
+  },
+  {
+   "sample": 2237765,
+   "label_id": 5,
+   "score": 234
+  },
+  {
+   "sample": 2267055,
+   "label_id": 11,
+   "score": 247
+  },
+  {
+   "sample": 2466781,
+   "label_id": 7,
+   "score": 231
+  },
+  {
+   "sample": 2497057,
+   "label_id": 5,
+   "score": 243
+  },
+  {
+   "sample": 2584419,
+   "label_id": 6,
+   "score": 219
+  },
+  {
+   "sample": 2654138,
+   "label_id": 7,
+   "score": 253
+  },
+  {
+   "sample": 2682567,
+   "label_id": 4,
+   "score": 227
+  },
+  {
+   "sample": 2722011,
+   "label_id": 8,
+   "score": 222
+  },
+  {
+   "sample": 2820635,
+   "label_id": 5,
+   "score": 205
+  },
+  {
+   "sample": 2910803,
+   "label_id": 5,
+   "score": 237
+  },
+  {
+   "sample": 2976465,
+   "label_id": 7,
+   "score": 234
+  },
+  {
+   "sample": 3004074,
+   "label_id": 11,
+   "score": 218
+  },
+  {
+   "sample": 3040934,
+   "label_id": 4,
+   "score": 213
+  },
+  {
+   "sample": 3068107,
+   "label_id": 8,
+   "score": 235
+  },
+  {
+   "sample": 3098945,
+   "label_id": 4,
+   "score": 218
+  },
+  {
+   "sample": 3166560,
+   "label_id": 3,
+   "score": 213
+  },
+  {
+   "sample": 3198211,
+   "label_id": 4,
+   "score": 244
+  },
+  {
+   "sample": 3233946,
+   "label_id": 5,
+   "score": 233
+  },
+  {
+   "sample": 3255627,
+   "label_id": 2,
+   "score": 204
+  },
+  {
+   "sample": 3327790,
+   "label_id": 5,
+   "score": 252
+  },
+  {
+   "sample": 3358238,
+   "label_id": 5,
+   "score": 255
+  },
+  {
+   "sample": 3394020,
+   "label_id": 10,
+   "score": 251
+  },
+  {
+   "sample": 3421031,
+   "label_id": 4,
+   "score": 246
+  },
+  {
+   "sample": 3451715,
+   "label_id": 2,
+   "score": 246
+  },
+  {
+   "sample": 3512378,
+   "label_id": 4,
+   "score": 248
+  },
+  {
+   "sample": 3712088,
+   "label_id": 5,
+   "score": 224
+  },
+  {
+   "sample": 3738068,
+   "label_id": 2,
+   "score": 207
+  },
+  {
+   "sample": 3773985,
+   "label_id": 7,
+   "score": 224
+  },
+  {
+   "sample": 3805737,
+   "label_id": 7,
+   "score": 238
+  },
+  {
+   "sample": 3843582,
+   "label_id": 5,
+   "score": 209
+  },
+  {
+   "sample": 3879520,
+   "label_id": 3,
+   "score": 229
+  },
+  {
+   "sample": 3899793,
+   "label_id": 11,
+   "score": 246
+  },
+  {
+   "sample": 3945670,
+   "label_id": 6,
+   "score": 208
+  },
+  {
+   "sample": 3965815,
+   "label_id": 7,
+   "score": 208
+  },
+  {
+   "sample": 4038249,
+   "label_id": 5,
+   "score": 239
+  },
+  {
+   "sample": 4217374,
+   "label_id": 2,
+   "score": 223
+  },
+  {
+   "sample": 4284418,
+   "label_id": 9,
+   "score": 237
+  },
+  {
+   "sample": 4319867,
+   "label_id": 2,
+   "score": 212
+  },
+  {
+   "sample": 4347776,
+   "label_id": 9,
+   "score": 207
+  },
+  {
+   "sample": 4385046,
+   "label_id": 6,
+   "score": 228
+  },
+  {
+   "sample": 4417652,
+   "label_id": 8,
+   "score": 245
+  },
+  {
+   "sample": 4511400,
+   "label_id": 3,
+   "score": 217
+  },
+  {
+   "sample": 4548615,
+   "label_id": 9,
+   "score": 230
+  },
+  {
+   "sample": 4572317,
+   "label_id": 6,
+   "score": 206
+  },
+  {
+   "sample": 4703117,
+   "label_id": 8,
+   "score": 245
+  },
+  {
+   "sample": 4738761,
+   "label_id": 8,
+   "score": 246
+  },
+  {
+   "sample": 4768153,
+   "label_id": 8,
+   "score": 210
+  },
+  {
+   "sample": 4797339,
+   "label_id": 2,
+   "score": 211
+  }
+ ],
+ "tasks": {
+  "T1": {
+   "core": -1,
+   "stack_free_min": 3284,
+   "cpu_pct": 0.53,
+   "activations": 15376,
+   "resp_mean_us": 70,
+   "resp_max_us": 150
+  },
+  "T2": {
+   "core": 1,
+   "stack_free_min": 3380,
+   "cpu_pct": 3.9,
+   "activations": 15376,
+   "resp_mean_us": 5285,
+   "resp_max_us": 23572
+  },
+  "T3": {
+   "core": 1,
+   "stack_free_min": 7572,
+   "cpu_pct": 22.59,
+   "activations": 3066,
+   "resp_mean_us": 22639,
+   "resp_max_us": 22904
+  },
+  "T4": {
+   "core": -1,
+   "stack_free_min": 2388,
+   "cpu_pct": 0.06,
+   "activations": 3076,
+   "resp_mean_us": 47,
+   "resp_max_us": 91
+  }
+ },
+ "parse_errors": 0,
+ "duration_s": 308.861,
+ "run_id": "D-T01-R2",
+ "order": 19,
+ "seed": 265339419,
+ "factors": {
+  "model": "dnn",
+  "strategy": "base"
+ },
+ "cfg": {
+  "demo": "off",
+  "frag": "0",
+  "seq": "full",
+  "model": "dnn",
+  "affinity": "none",
+  "prio": "equal",
+  "load": "off",
+  "mem": "sram",
+  "alloc": "static"
+ },
+ "attempts": 1,
+ "started": "2026-11-27T06:35:20+00:00"
+}

@@ -1,0 +1,179 @@
+    0.109 < ESP-ROM:esp32s3-20210327
+    0.118 < Build:Mar 27 2021
+    0.123 < rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+    0.123 < SPIWP:0xee
+    0.123 < mode:DIO, clock div:1
+    0.129 < load:0x3fce2820,len:0x1534
+    0.129 < load:0x403c8700,len:0xda0
+    0.129 < load:0x403cb700,len:0x2f94
+    0.130 < entry 0x403c8908
+    0.136 < I (24) boot: ESP-IDF v6.0.3 2nd stage bootloader
+    0.142 < I (25) boot: compile time Nov 20 2026 05:36:49
+    0.147 < I (25) boot: Multicore bootloader
+    0.147 < I (25) boot: chip revision: v0.2
+    0.153 < I (28) boot: efuse block revision: v1.4
+    0.153 < I (31) boot.esp32s3: Boot SPI Speed : 80MHz
+    0.158 < I (35) boot.esp32s3: SPI Mode       : DIO
+    0.164 < I (39) boot.esp32s3: SPI Flash Size : 16MB
+    0.169 < I (43) boot: Enabling RNG early entropy source...
+    0.169 < I (47) boot: Partition Table:
+    0.175 < I (50) boot: ## Label            Usage          Type ST Offset   Length
+    0.180 < I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+    0.192 < I (63) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+    0.197 < I (69) boot:  2 factory          factory app      00 00 00010000 00300000
+    0.203 < I (76) boot:  3 sequence         Unknown data     01 40 00310000 00a00000
+    0.203 < I (82) boot: End of partition table
+    0.210 < I (86) esp_image: segment 0: paddr=00010020 vaddr=3c040020 size=ad808h (710664) map
+    0.337 < I (220) esp_image: segment 1: paddr=000bd830 vaddr=3fc91f00 size=027e8h ( 10216) load
+    0.341 < I (223) esp_image: segment 2: paddr=000c0020 vaddr=42000020 size=39d2ch (236844) map
+    0.384 < I (267) esp_image: segment 3: paddr=000f9d54 vaddr=3fc946e8 size=00each (  3756) load
+    0.388 < I (268) esp_image: segment 4: paddr=000fac08 vaddr=40374000 size=0de70h ( 56944) load
+    0.400 < I (283) esp_image: segment 5: paddr=00108a80 vaddr=50000000 size=00024h (    36) load
+    0.406 < I (290) boot: Loaded app from partition at offset 0x10000
+    0.406 < I (290) boot: Disabling RNG early entropy source...
+    0.413 < I (301) octal_psram: vendor id    : 0x0d (AP)
+    0.419 < I (301) octal_psram: dev id       : 0x02 (generation 3)
+    0.424 < I (302) octal_psram: density      : 0x03 (64 Mbit)
+    0.430 < I (304) octal_psram: good-die     : 0x01 (Pass)
+    0.430 < I (308) octal_psram: Latency      : 0x01 (Fixed)
+    0.435 < I (312) octal_psram: VCC          : 0x01 (3V)
+    0.441 < I (316) octal_psram: SRF          : 0x01 (Fast Refresh)
+    0.446 < I (321) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+    0.452 < I (326) octal_psram: BurstLen     : 0x01 (32 Byte)
+    0.458 < I (331) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+    0.458 < I (336) octal_psram: DriveStrength: 0x00 (1/1)
+    0.463 < I (340) MSPI Timing: Enter psram timing tuning
+    0.469 < I (345) esp_psram: Found 8MB PSRAM device
+    0.469 < I (348) esp_psram: Speed: 80MHz
+    0.471 < I (351) cpu_start: Multicore app
+    0.870 < I (760) esp_psram: SPI SRAM memory test OK
+    0.886 < I (769) cpu_start: GPIO 44 and 43 are used as console UART I/O pins
+    0.886 < I (769) cpu_start: Pro cpu start user code
+    0.891 < I (769) cpu_start: cpu freq: 240000000 Hz
+    0.897 < I (771) app_init: Application information:
+    0.897 < I (775) app_init: Project name:     kws_freertos
+    0.903 < I (779) app_init: App version:      d741011
+    0.908 < I (783) app_init: Compile time:     Nov 26 2026 21:26:08
+    0.913 < I (788) app_init: ELF file SHA256:  613a34167...
+    0.914 < I (792) app_init: ESP-IDF:          v6.0.3
+    0.919 < I (796) efuse_init: Min chip rev:     v0.0
+    0.925 < I (800) efuse_init: Max chip rev:     v0.99 
+    0.930 < I (804) efuse_init: Chip rev:         v0.2
+    0.936 < I (808) heap_init: Initializing. RAM available for dynamic allocation:
+    0.941 < I (814) heap_init: At 3FCA5B20 len 00043BF0 (270 KiB): RAM
+    0.947 < I (819) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+    0.947 < I (824) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM
+    0.952 < I (830) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM
+    0.964 < I (835) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator
+    0.964 < I (842) spi_flash: detected chip: generic
+    0.969 < I (845) spi_flash: flash io: dio
+    0.975 < I (848) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+    0.980 < I (854) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+    0.982 < I (861) main_task: Started on CPU0
+    0.997 < I (885) main_task: Calling app_main()
+    1.002 < ESP-IDF v6.0.3 | cores=2 rev=2
+    1.007 < free internal=321792 B (largest block 258048 B) | free PSRAM=8378608 B
+    1.007 < sequence partition: mapped
+    1.007 < READY
+    1.007 > CFG model=dnn affinity=none prio=equal load=off mem=sram alloc=static frag=0 seq=full demo=off seed=1163843085
+    1.020 < OK
+  308.041 < DET,31858,5,238
+  308.041 < DET,66636,4,240
+  308.041 < DET,156144,8,254
+  308.046 < DET,195685,3,242
+  308.046 < DET,221186,7,220
+  308.046 < DET,286904,6,226
+  308.046 < DET,321916,10,253
+  308.052 < DET,379260,9,207
+  308.052 < DET,417252,10,249
+  308.052 < DET,446253,7,228
+  308.057 < DET,509186,2,228
+  308.057 < DET,602327,6,213
+  308.057 < DET,703259,7,219
+  308.057 < DET,738375,10,249
+  308.063 < DET,765688,4,231
+  308.063 < DET,831947,8,236
+  308.063 < DET,895580,3,213
+  308.069 < DET,925690,6,204
+  308.069 < DET,959691,9,208
+  308.069 < DET,1019292,5,207
+  308.069 < DET,1050279,10,237
+  308.074 < DET,1094049,11,218
+  308.074 < DET,1119495,2,208
+  308.074 < DET,1149371,7,204
+  308.080 < DET,1179612,11,236
+  308.080 < DET,1219857,6,213
+  308.080 < DET,1255772,7,220
+  308.085 < DET,1273111,2,228
+  308.085 < DET,1336898,10,239
+  308.085 < DET,1407980,10,253
+  308.085 < DET,1441385,2,254
+  308.091 < DET,1476914,6,222
+  308.091 < DET,1503268,9,206
+  308.091 < DET,1529652,4,228
+  308.096 < DET,1567092,6,247
+  308.097 < DET,1600225,9,210
+  308.097 < DET,1627562,8,255
+  308.102 < DET,1691772,3,223
+  308.102 < DET,1824308,9,231
+  308.102 < DET,1854618,8,226
+  308.102 < DET,1895668,7,226
+  308.108 < DET,1917125,11,215
+  308.108 < DET,2080222,2,209
+  308.108 < DET,2109402,10,207
+  308.113 < DET,2174275,5,228
+  308.113 < DET,2207234,6,209
+  308.113 < DET,2238029,5,250
+  308.119 < DET,2266211,11,247
+  308.119 < DET,2466891,7,246
+  308.119 < DET,2496761,5,247
+  308.119 < DET,2585357,6,225
+  308.124 < DET,2653366,7,250
+  308.124 < DET,2683031,4,224
+  308.124 < DET,2722232,8,208
+  308.130 < DET,2818004,5,209
+  308.130 < DET,2909352,5,225
+  308.130 < DET,2976872,7,230
+  308.135 < DET,3044620,4,227
+  308.135 < DET,3068157,8,229
+  308.135 < DET,3097862,4,219
+  308.135 < DET,3233889,5,236
+  308.141 < DET,3258508,2,225
+  308.141 < DET,3294816,4,216
+  308.141 < DET,3327803,5,251
+  308.146 < DET,3358100,5,255
+  308.146 < DET,3393484,10,234
+  308.146 < DET,3420416,4,244
+  308.152 < DET,3450731,2,230
+  308.152 < DET,3511803,4,242
+  308.152 < DET,3712390,5,221
+  308.152 < DET,3738621,2,234
+  308.157 < DET,3773203,7,205
+  308.157 < DET,3805345,7,224
+  308.157 < DET,3843682,5,208
+  308.163 < DET,3880780,3,216
+  308.163 < DET,3899798,11,246
+  308.163 < DET,3945658,6,209
+  308.169 < DET,3966790,7,212
+  308.169 < DET,4033535,10,212
+  308.169 < DET,4165709,8,220
+  308.169 < DET,4216349,2,211
+  308.174 < DET,4284199,9,224
+  308.174 < DET,4319700,2,225
+  308.174 < DET,4347993,9,235
+  308.180 < DET,4384674,6,244
+  308.180 < DET,4416952,8,226
+  308.180 < DET,4456316,3,206
+  308.185 < DET,4508837,3,221
+  308.185 < DET,4548842,9,237
+  308.185 < DET,4572744,6,237
+  308.185 < DET,4702902,8,249
+  308.191 < DET,4738507,8,238
+  308.191 < DET,4769002,8,248
+  308.191 < DET,4798225,2,231
+  308.202 < TASK,T1,core=-1,stack_free_min=3284,cpu_pct=0.54,activations=15348,resp_mean_us=70,resp_max_us=148
+  308.208 < TASK,T2,core=1,stack_free_min=3380,cpu_pct=3.90,activations=15348,resp_mean_us=5285,resp_max_us=23560
+  308.218 < TASK,T3,core=1,stack_free_min=7572,cpu_pct=22.59,activations=3060,resp_mean_us=22641,resp_max_us=22903
+  308.230 < TASK,T4,core=-1,stack_free_min=2388,cpu_pct=0.06,activations=3070,resp_mean_us=47,resp_max_us=88
+  308.261 < RESULT,inferences=3060,inf_mean_us=21895,inf_sd_us=10,inf_p95_us=21905,inf_max_us=22105,blocks_total=15348,blocks_lost=0,dma_ovf=0,ring_ovf=0,heap_free_min=282232,heap_largest_block=258048,psram_free_min=8378048,arena_bytes=8716,alloc_fail=0,load_us=3902,largest_block_min=241664,run_alloc_fail=0,inf_skipped=0,inf_fail=0,detections=94,threshold=0.80,t1_gap_max_us=20055,run_ms=306980,seq_inserted=111267
+  308.261 < DONE
